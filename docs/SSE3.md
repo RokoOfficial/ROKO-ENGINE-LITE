@@ -1,52 +1,63 @@
-# SSE3 — Server-Sent Events
+# SSE3 — Server-Sent Events — ROKO ROUTER 2.1.0
 
-## Status: 🔄 STANDBY
+## Visão Geral
+
+SSE3 permite streaming em tempo real de execução de scripts.
 
 ## Endpoint
 
 | Método | Rota | Descrição |
 |--------|------|-----------|
-| POST | `/script/stream` | Stream de execução em tempo real |
+| POST | `/script/stream` | Stream de execução |
 
-## Funcionalidades Planejadas
+## Fluxo
 
-- [ ] Streaming de execução de scripts
-- [ ] Eventos em tempo real
-- [ ] Progresso de execução
-- [ ] Resultados parciais
-- [ ] Cancelamento de execução
-
-## Formato do Evento
-
-```json
-{
-  "type": "progress",
-  "data": {
-    "step": 1,
-    "total": 10,
-    "message": "Executando...",
-    "timestamp": "2026-08-20T12:00:00Z"
-  }
-}
+```text
+Cliente ──POST /script/stream──▶ ROKO ROUTER
+    ▲                              │
+    │                              ▼
+    │                         Runtime Engine
+    │                              │
+    │                              ▼
+    │                         Event Stream
+    │                              │
+    └──────────SSE Events──────────┘
 ```
 
-## Tipos de Evento
+## Eventos
 
-| Tipo | Descrição |
-|------|-----------|
+| Evento | Descrição |
+|--------|-----------|
 | `start` | Início da execução |
-| `progress` | Progresso parcial |
 | `tool_call` | Chamada de tool |
 | `result` | Resultado parcial |
-| `complete` | Execução completa |
-| `error` | Erro na execução |
+| `end` | Fim da execução |
+| `error` | Erro durante execução |
 
-## Uso
+## Exemplo
 
 ```bash
 curl -N -X POST /script/stream \
   -H "Content-Type: application/json" \
-  -d '{"script": "CALL math.sum(10, 32)"}'
+  -d '{"script": "CALL math.sum(10, 32)\\nRETURN last_result"}'
 ```
 
-## Estado: 🔄 STANDBY
+## Resposta SSE
+
+```text
+event: start
+data: {"status": "running"}
+
+event: tool_call
+data: {"tool": "math.sum", "params": {"a": 10, "b": 32}}
+
+event: result
+data: {"result": 42.0}
+
+event: end
+data: {"status": "completed", "return_value": 42.0}
+```
+
+## Status
+
+🔄 **STANDBY** — Pronto para implementação
