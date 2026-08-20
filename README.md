@@ -105,6 +105,12 @@ The interpreter supports `SET`, `CALL`, `RETURN`, `IF` / `ELSE`, `FOR`, `WHILE`,
 └── requirements.txt
 ```
 
-## License and contributions
+## License and credits
 
-The repository does not currently include a license file. Add an explicit license before distributing or reusing the code under defined terms. Contributions should preserve the modular boundaries described in [the architecture guide](docs/ARCHITECTURE.md) and should update the relevant documentation when they alter public behavior.
+ROKO ENGINE LITE is released under the [MIT License](LICENSE). Copyright © 2026 **RokoOfficial**.
+
+The MIT License permits use, copying, modification, distribution, sublicensing, and sale of the software, provided that the copyright notice and permission notice are retained in all copies or substantial portions of the software. The project attribution is recorded in [NOTICE](NOTICE).
+
+> When redistributing a copy or a substantial portion of ROKO ENGINE LITE, retain the `LICENSE` and `NOTICE` files so that the original copyright and project credit remain visible.
+
+Contributions should preserve the modular boundaries described in [the architecture guide](docs/ARCHITECTURE.md) and should update the relevant documentation when they alter public behavior. See [Contributing](docs/CONTRIBUTING.md) for the development expectations.
