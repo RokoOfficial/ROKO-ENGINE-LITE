@@ -1,0 +1,87 @@
+// ============================================================================
+// ROKO_ROUTER.hmp — Router semântico de ferramentas
+// ----------------------------------------------------------------------------
+// Recebe uma intenção em linguagem natural + um dict de parâmetros, acha
+// entre TODAS as ferramentas registradas no motor (as nativas do router e
+// qualquer pacote registrado nele, como o HSG) a que melhor combina com a
+// intenção, e a EXECUTA dinamicamente — não só recomenda, chama de verdade.
+//
+// Como funciona a "semântica": o motor ROKO Script não tem embeddings nem
+// busca vetorial, então a pontuação aqui é por sobreposição de
+// palavras-chave, em duas camadas:
+//   1. Busca pela FRASE INTEIRA via meta.search (sinal forte — conta 3x)
+//   2. Busca por CADA PALAVRA da intenção via meta.search (sinal mais
+//      fraco, mas amplia a cobertura para variações de fraseado)
+// A ferramenta que mais aparece somando as duas buscas vence.
+//
+// Isso só é possível graças a duas capacidades novas do motor,
+// adicionadas junto com este router:
+//   - CALL ${variavel} WITH ...   -> nome da ferramenta é dinâmico, não
+//     precisa estar fixo no texto do script (antes, CALL só aceitava um
+//     nome literal — um "router" não conseguia de fato rotear, só
+//     recomendar).
+//   - CALL ${tool} WITH ${dict}   -> os parâmetros também podem vir de um
+//     dict inteiro (spread), em vez de precisar listar cada chave à mão.
+// ============================================================================
+
+// --- entrada do router (troque estes dois valores para testar outra intenção) ---
+SET intencao TO "soma"
+SET parametros TO {"a": 7, "b": 8}
+
+// --- 1. busca pela frase inteira (sinal forte, conta como 3 votos) ---
+CALL meta.search WITH query=${intencao} AS candidatos_frase
+
+SET votos TO []
+FOR r IN candidatos_frase DO
+    CALL json.get WITH obj=${r}, key="name" AS nome
+    CALL list.append WITH items=${votos}, item=${nome} AS votos
+    CALL list.append WITH items=${votos}, item=${nome} AS votos
+    CALL list.append WITH items=${votos}, item=${nome} AS votos
+END
+
+// --- 2. busca por cada palavra-chave da intenção (sinal mais fraco) ---
+CALL string.lower WITH text=${intencao} AS intencao_lower
+CALL string.split WITH text=${intencao_lower}, separator=" " AS palavras
+
+FOR palavra IN palavras DO
+    CALL string.length WITH text=${palavra} AS tamanho_palavra
+    IF tamanho_palavra < 4 THEN
+        CONTINUE
+    END
+    CALL meta.search WITH query=${palavra} AS candidatos_palavra
+    FOR r IN candidatos_palavra DO
+        CALL json.get WITH obj=${r}, key="name" AS nome
+        CALL list.append WITH items=${votos}, item=${nome} AS votos
+    END
+END
+
+// --- 3. deduplica e pontua por contagem de votos ---
+CALL list.unique WITH items=${votos} AS candidatos_unicos
+
+SET melhor_tool TO ""
+SET melhor_score TO 0
+FOR candidato IN candidatos_unicos DO
+    SET score TO 0
+    FOR nome IN votos DO
+        IF nome == candidato THEN
+            SET score TO score + 1
+        END
+    END
+    IF score > melhor_score THEN
+        SET melhor_score TO score
+        SET melhor_tool TO candidato
+    END
+END
+
+IF melhor_tool == "" THEN
+    RETURN {"ok": false, "erro": "Nenhuma ferramenta encontrada para a intencao", "intencao": intencao}
+END
+
+// --- 4. transparência: mostra o que foi escolhido e por quê antes de rodar ---
+CALL meta.help WITH tool_name=${melhor_tool} AS detalhes_tool
+CALL log.print WITH message="[ROKO_ROUTER] intencao='${intencao}' -> tool='${melhor_tool}' (score=${melhor_score}/${candidatos_unicos})"
+
+// --- 5. executa a ferramenta escolhida DE VERDADE, dinamicamente ---
+CALL ${melhor_tool} WITH ${parametros} AS resultado_execucao
+
+RETURN {"ok": true, "intencao": intencao, "tool_escolhida": melhor_tool, "score": melhor_score, "parametros": parametros, "resultado": resultado_execucao}

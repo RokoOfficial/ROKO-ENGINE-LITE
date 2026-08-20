@@ -1,79 +1,83 @@
-# Quick Routes — ROKO ROUTER 2.1.0
+# Quick routes
 
-## Visão Geral
-
-Rotas rápidas para operações comuns sem precisar do Script Engine completo.
-
-## Endpoints
-
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| POST | `/math/{operation}` | Operação matemática |
-| POST | `/string/{operation}` | Operação de string |
-| POST | `/date/{operation}` | Operação de data |
-| POST | `/random/{operation}` | Operação aleatória |
-| POST | `/crypto/{operation}` | Operação criptográfica |
-
-## Exemplos
-
-### Math
+Quick routes provide concise HTTP access to common tool families. They accept either query-string parameters with `GET` or a JSON object with `POST`, select a friendly operation alias, invoke the mapped tool, and return a compact response containing `operation`, `tool`, and `result`.
 
 ```bash
-curl -X POST /math/sum \
-  -H "Content-Type: application/json" \
-  -d '{"a": 10, "b": 32}'
+curl -sS 'http://127.0.0.1:8989/math/sum?a=10&b=5'
+curl -sS -X POST http://127.0.0.1:8989/string/upper \
+  -H 'Content-Type: application/json' \
+  -d '{"text":"roko"}'
 ```
+
+When the same parameter is supplied in the query string and in the JSON body, the query-string value is used. Unsupported operation aliases and tool-level failures return HTTP `400`.
+
+## Math
+
+| Route operation | Registered tool |
+|---|---|
+| `sum`, `add` | `math.sum` |
+| `subtract`, `sub` | `math.subtract` |
+| `multiply`, `mul` | `math.multiply` |
+| `divide`, `div` | `math.divide` |
+| `power`, `pow` | `math.power` |
+| `sqrt` | `math.sqrt` |
+| `abs` | `math.abs` |
+| `floor` | `math.floor` |
+| `ceil` | `math.ceil` |
+| `round` | `math.round` |
+| `factorial` | `math.factorial` |
+| `percentage` | `math.percentage` |
+| `average` | `math.average` |
+
+Accepted quick-route fields are `a`, `b`, `n`, `value`, and `decimals`.
+
+## String
+
+| Route operation | Registered tool |
+|---|---|
+| `upper`, `lower`, `capitalize`, `title`, `reverse` | Matching `string.*` tool |
+| `length`, `len` | `string.length` |
+| `trim`, `replace`, `split`, `join`, `contains` | Matching `string.*` tool |
+| `starts_with`, `ends_with`, `find`, `slice` | Matching `string.*` tool |
+| `append`, `count`, `pad_left`, `pad_right` | Matching `string.*` tool |
+
+Accepted quick-route fields are `text`, `old`, `new`, `substring`, `prefix`, `suffix`, `length`, and `char`.
+
+## Date
+
+| Route operation | Registered tool |
+|---|---|
+| `now` | `date.now` |
+| `timestamp` | `date.timestamp` |
+| `format` | `date.format` |
+| `add_days` | `date.add_days` |
+| `add_hours` | `date.add_hours` |
+| `diff_days` | `date.diff_days` |
+| `parse` | `date.parse` |
+
+Accepted quick-route fields are `date_str`, `format_str`, `days`, `hours`, `date1`, and `date2`.
+
+## Random and crypto
+
+| Family | Route operation | Registered tool |
+|---|---|---|
+| Random | `number`, `int` | `random.number` |
+| Random | `float`, `choice`, `shuffle` | Matching `random.*` tool |
+| Random | `boolean`, `bool` | `random.boolean` |
+| Crypto | `uuid`, `hash`, `md5`, `sha1`, `random_string` | Matching `crypto.*` tool |
+
+The random family accepts `min_val`, `max_val`, `items`, and `length`. The crypto family accepts `text` and `length`.
+
+## Response contract
+
+A successful quick route returns a compact form rather than the full generic tool envelope.
 
 ```json
-{"result": 42.0}
+{
+  "operation": "sum",
+  "tool": "math.sum",
+  "result": 15.0
+}
 ```
 
-### String
-
-```bash
-curl -X POST /string/upper \
-  -H "Content-Type: application/json" \
-  -d '{"text": "hello"}'
-```
-
-```json
-{"result": "HELLO"}
-```
-
-### Date
-
-```bash
-curl -X POST /date/now
-```
-
-```json
-{"result": "2026-08-20T12:00:00Z"}
-```
-
-### Random
-
-```bash
-curl -X POST /random/int \
-  -H "Content-Type: application/json" \
-  -d '{"min": 1, "max": 100}'
-```
-
-```json
-{"result": 42}
-```
-
-### Crypto
-
-```bash
-curl -X POST /crypto/hash \
-  -H "Content-Type: application/json" \
-  -d '{"text": "hello", "algorithm": "sha256"}'
-```
-
-```json
-{"result": "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"}
-```
-
-## Status
-
-⏳ **PENDING** — Em desenvolvimento
+The route accepts only the parameter names listed for its family. For uncommon tools, metadata inspection, or access to every registered parameter, use `POST /tool/<tool_name>` instead.

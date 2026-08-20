@@ -1,43 +1,46 @@
-# Changelog — ROKO ROUTER 2.1.0
+# Changelog
+
+All notable project changes are recorded in this file.
 
 ## [2.1.0] - 2026-08-20
 
-### Adicionado
+### Added
 
-- **Tool Registry**: 92 tools em 11 categorias
-- **Script Engine**: Parser, runtime, expressões, CALL, RETURN
-- **.ROKO File System**: Upload, list, read, update, run, delete
-- **Observability**: result, return_value, last_result, output, trace, stats
-- **CORS**: Suporte completo a Cross-Origin Resource Sharing
-- **SSE3**: Server-Sent Events (STANDBY)
+| Area | Change |
+|---|---|
+| Modular runtime | Added `api.py`, `router.py`, `roko.py`, and `tools.py` as distinct layers for transport, orchestration, interpretation, and tool execution |
+| Script language | Added multiline block parsing for `IF` / `ELSE`, `WHILE`, and `FOR`; `BREAK`; `CONTINUE`; safe expression evaluation; and execution traces |
+| Dynamic dispatch | Added support for dynamic tool names and parameter dictionaries in `CALL` instructions |
+| Streaming | Added real-time Server-Sent Event delivery from interpreter callbacks through `POST /script/stream` |
+| File API | Added managed `.roko` listing, upload, read, update, delete, and run routes |
+| Quick routes | Added common math, string, date, random, and crypto operation shortcuts |
+| Example | Added `ROKO_ROUTER.hmp` and executable `examples/semantic_router.roko` dynamic-routing samples |
+| Documentation | Replaced outdated documents with an English documentation set aligned to the modular implementation |
 
-### Validado
+### Changed
 
-- API Info: PASS
-- Health: PASS
-- Version: PASS
-- Tool Registry: PASS
-- Tool Execution: PASS
-- Script Engine: PASS
-- .ROKO File System: PASS
+| Area | Change |
+|---|---|
+| Entry point | `main.py` now imports and launches the same Quart application exposed by `api.py` |
+| Dependencies | Replaced the unused `sse-starlette` requirement with `requests` and `werkzeug`, which are used by the modular tool and file layers |
+| API behavior | Health, tool, script, file, quick-route, and streaming endpoints are now implemented by the public application entry point |
+| Runtime controls | Added explicit script line, block-depth, loop-step, and execution-time limits |
 
-### Pendente
+### Compatibility notes
 
-- Quick Routes: PENDING
-- SSE3: STANDBY
+The previous repository entry point exposed only three service-information routes. The new `main.py` retains its role as the startup command but now serves the modular API on port `8989` by default. Existing deployments that relied on port `8000` must set `PORT=8000` explicitly.
+
+The sample semantic router performs lexical metadata matching. It should not be described as vector search or embedding-based semantic routing.
 
 ## [2.0.0] - 2026-07-15
 
-### Adicionado
+### Added
 
-- Tool Registry inicial
-- 11 categorias de tools
-- Execução de tools
+- Initial lightweight router structure.
+- Basic service-information endpoints.
 
 ## [1.0.0] - 2026-06-01
 
-### Adicionado
+### Added
 
-- Estrutura base do ROKO ROUTER
-- API Info endpoints
-- Health check
+- Initial project foundation.
