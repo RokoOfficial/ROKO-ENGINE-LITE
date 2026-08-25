@@ -107,10 +107,10 @@ The interpreter supports `SET`, `CALL`, `RETURN`, `IF` / `ELSE`, `FOR`, `WHILE`,
 
 ## License and credits
 
-ROKO ENGINE LITE is released under the [MIT License](LICENSE). Copyright © 2026 **RokoOfficial**.
+**ROKO ENGINE LITE is licensed under the [Apache License, Version 2.0](LICENSE) (SPDX: `Apache-2.0`).** Copyright © 2026 **RokoOfficial**.
 
-The MIT License permits use, copying, modification, distribution, sublicensing, and sale of the software, provided that the copyright notice and permission notice are retained in all copies or substantial portions of the software. The project attribution is recorded in [NOTICE](NOTICE).
+> You may use, reproduce, modify, and distribute this software under the conditions in the [LICENSE](LICENSE) file. Redistributions must include a copy of the license, preserve applicable copyright, patent, trademark, and attribution notices, and clearly mark modified files. The license includes an express patent grant, but does not grant trademark rights.
 
-> When redistributing a copy or a substantial portion of ROKO ENGINE LITE, retain the `LICENSE` and `NOTICE` files so that the original copyright and project credit remain visible.
+When redistributing ROKO ENGINE LITE or derivative works, retain both the `LICENSE` and `NOTICE` files. The [NOTICE](NOTICE) file provides required project attribution and is informational; it does not modify the Apache License 2.0 terms.
 
 Contributions should preserve the modular boundaries described in [the architecture guide](docs/ARCHITECTURE.md) and should update the relevant documentation when they alter public behavior. See [Contributing](docs/CONTRIBUTING.md) for the development expectations.
