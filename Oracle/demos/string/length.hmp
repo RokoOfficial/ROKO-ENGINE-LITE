@@ -1,0 +1,7 @@
+// Oracle demo — string.length
+// Tamanho da string
+
+SET text TO "Hello ROKO"
+
+CALL string.length WITH text=${text} AS resultado
+RETURN {"tool": "string.length", "resultado": resultado}

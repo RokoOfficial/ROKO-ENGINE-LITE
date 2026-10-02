@@ -1,0 +1,5 @@
+// Oracle demo — crypto.uuid
+// Gera UUID
+
+CALL crypto.uuid AS resultado
+RETURN {"tool": "crypto.uuid", "resultado": resultado}

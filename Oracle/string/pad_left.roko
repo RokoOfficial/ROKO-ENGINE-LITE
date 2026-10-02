@@ -1,0 +1,8 @@
+// @name: string.pad_left
+// @category: string
+// @description: Preenche à esquerda
+// @params: text, length, char
+// Oracle tool (.roko) — executável via CALL string.pad_left
+
+CALL native.string.pad_left WITH text=${text}, length=${length}, char=${char} AS r
+RETURN ${r}

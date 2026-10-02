@@ -1,0 +1,8 @@
+// @name: parallel.report
+// @category: parallel
+// @description: Relatorio do motor parallel
+// @params: 
+// Oracle tool (.roko) — executável via CALL parallel.report
+
+CALL native.parallel.report AS r
+RETURN ${r}

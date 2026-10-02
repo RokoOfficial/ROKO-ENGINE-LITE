@@ -1,0 +1,8 @@
+// Oracle demo — string.starts_with
+// Verifica prefixo
+
+SET text TO "Hello ROKO"
+SET prefix TO "He"
+
+CALL string.starts_with WITH text=${text}, prefix=${prefix} AS resultado
+RETURN {"tool": "string.starts_with", "resultado": resultado}

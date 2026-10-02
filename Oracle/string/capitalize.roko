@@ -1,0 +1,8 @@
+// @name: string.capitalize
+// @category: string
+// @description: Capitaliza a string
+// @params: text
+// Oracle tool (.roko) — executável via CALL string.capitalize
+
+CALL native.string.capitalize WITH text=${text} AS r
+RETURN ${r}

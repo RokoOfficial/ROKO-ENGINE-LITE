@@ -1,0 +1,8 @@
+// @name: json.stringify
+// @category: json
+// @description: Converte objeto para JSON
+// @params: obj
+// Oracle tool (.roko) — executável via CALL json.stringify
+
+CALL native.json.stringify WITH obj=${obj} AS r
+RETURN ${r}

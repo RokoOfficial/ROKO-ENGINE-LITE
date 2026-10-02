@@ -1,0 +1,7 @@
+// Oracle demo — math.average
+// Calcula a média aritmética
+
+SET args... TO ""
+
+CALL math.average WITH args...=${args...} AS resultado
+RETURN {"tool": "math.average", "resultado": resultado}

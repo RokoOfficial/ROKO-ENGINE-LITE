@@ -1,0 +1,8 @@
+// @name: list.reverse
+// @category: list
+// @description: Inverte a lista
+// @params: items
+// Oracle tool (.roko) — executável via CALL list.reverse
+
+CALL native.list.reverse WITH items=${items} AS r
+RETURN ${r}

@@ -1,0 +1,7 @@
+// Oracle demo — string.title
+// Converte para formato título
+
+SET text TO "Hello ROKO"
+
+CALL string.title WITH text=${text} AS resultado
+RETURN {"tool": "string.title", "resultado": resultado}

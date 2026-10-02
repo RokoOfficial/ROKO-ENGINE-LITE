@@ -1,0 +1,7 @@
+// Oracle demo — http.status
+// Verifica status HTTP
+
+SET url TO "https://httpbin.org/get"
+
+CALL http.status WITH url=${url} AS resultado
+RETURN {"tool": "http.status", "resultado": resultado}

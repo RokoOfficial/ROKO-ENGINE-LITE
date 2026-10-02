@@ -1,0 +1,8 @@
+// @name: crypto.md5
+// @category: crypto
+// @description: Gera hash MD5
+// @params: text
+// Oracle tool (.roko) — executável via CALL crypto.md5
+
+CALL native.crypto.md5 WITH text=${text} AS r
+RETURN ${r}

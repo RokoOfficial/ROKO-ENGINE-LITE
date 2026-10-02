@@ -1,0 +1,8 @@
+// Oracle demo — math.power
+// Eleva à potência
+
+SET a TO 7
+SET b TO 8
+
+CALL math.power WITH a=${a}, b=${b} AS resultado
+RETURN {"tool": "math.power", "resultado": resultado}

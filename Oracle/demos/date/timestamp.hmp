@@ -1,0 +1,5 @@
+// Oracle demo — date.timestamp
+// Timestamp atual
+
+CALL date.timestamp AS resultado
+RETURN {"tool": "date.timestamp", "resultado": resultado}

@@ -1,0 +1,5 @@
+// Oracle demo — system.time
+// Hora atual
+
+CALL system.time AS resultado
+RETURN {"tool": "system.time", "resultado": resultado}

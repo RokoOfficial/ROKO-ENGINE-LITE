@@ -1,0 +1,7 @@
+// Oracle demo — list.length
+// Tamanho da lista
+
+SET items TO [1, 2, 3]
+
+CALL list.length WITH items=${items} AS resultado
+RETURN {"tool": "list.length", "resultado": resultado}

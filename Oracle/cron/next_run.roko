@@ -1,0 +1,8 @@
+// @name: cron.next_run
+// @category: cron
+// @description: Proxima execucao formatada
+// @params: user_id, job_id
+// Oracle tool (.roko) — executável via CALL cron.next_run
+
+CALL native.cron.next_run WITH user_id=${user_id}, job_id=${job_id} AS r
+RETURN ${r}

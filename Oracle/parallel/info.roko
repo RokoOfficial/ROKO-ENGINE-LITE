@@ -1,0 +1,8 @@
+// @name: parallel.info
+// @category: parallel
+// @description: Info do motor parallel
+// @params: 
+// Oracle tool (.roko) — executável via CALL parallel.info
+
+CALL native.parallel.info AS r
+RETURN ${r}

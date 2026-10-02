@@ -1,0 +1,6 @@
+// Plan agente simbólico — demo matemática + memória
+CALL memory.build_context WITH user_id=${user_id}, query=${goal} AS memctx
+CALL math.sum WITH a=7, b=8 AS soma
+CALL math.multiply WITH a=${soma}, b=2 AS dobro
+CALL memory.store_fact WITH user_id=${user_id}, key="last_math_sum", value="${soma}", importance=0.8, category="agent" AS fact
+RETURN {"ok": true, "soma": ${soma}, "dobro": ${dobro}, "step": ${step}, "has_context": ${has_context}}

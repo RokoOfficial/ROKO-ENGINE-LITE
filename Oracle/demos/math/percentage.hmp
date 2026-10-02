@@ -1,0 +1,8 @@
+// Oracle demo — math.percentage
+// Calcula a porcentagem
+
+SET value TO 42
+SET total TO ""
+
+CALL math.percentage WITH value=${value}, total=${total} AS resultado
+RETURN {"tool": "math.percentage", "resultado": resultado}

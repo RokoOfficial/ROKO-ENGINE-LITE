@@ -1,0 +1,8 @@
+// @name: crypto.uuid
+// @category: crypto
+// @description: Gera UUID
+// @params: 
+// Oracle tool (.roko) — executável via CALL crypto.uuid
+
+CALL native.crypto.uuid AS r
+RETURN ${r}

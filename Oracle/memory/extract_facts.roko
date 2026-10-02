@@ -1,0 +1,8 @@
+// @name: memory.extract_facts
+// @category: memory
+// @description: Extrai factos de texto
+// @params: user_id, text
+// Oracle tool (.roko) — executável via CALL memory.extract_facts
+
+CALL native.memory.extract_facts WITH user_id=${user_id}, text=${text} AS r
+RETURN ${r}

@@ -1,0 +1,8 @@
+// @name: string.find
+// @category: string
+// @description: Encontra posição da substring
+// @params: text, substring
+// Oracle tool (.roko) — executável via CALL string.find
+
+CALL native.string.find WITH text=${text}, substring=${substring} AS r
+RETURN ${r}

@@ -1,0 +1,8 @@
+// @name: crypto.hash
+// @category: crypto
+// @description: Gera hash SHA-256
+// @params: text
+// Oracle tool (.roko) — executável via CALL crypto.hash
+
+CALL native.crypto.hash WITH text=${text} AS r
+RETURN ${r}

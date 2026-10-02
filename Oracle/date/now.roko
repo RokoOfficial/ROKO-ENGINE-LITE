@@ -1,0 +1,8 @@
+// @name: date.now
+// @category: date
+// @description: Data e hora atual
+// @params: 
+// Oracle tool (.roko) — executável via CALL date.now
+
+CALL native.date.now AS r
+RETURN ${r}

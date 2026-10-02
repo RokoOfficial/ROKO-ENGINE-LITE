@@ -1,0 +1,8 @@
+// @name: string.upper
+// @category: string
+// @description: Converte para maiúsculas
+// @params: text
+// Oracle tool (.roko) — executável via CALL string.upper
+
+CALL native.string.upper WITH text=${text} AS r
+RETURN ${r}

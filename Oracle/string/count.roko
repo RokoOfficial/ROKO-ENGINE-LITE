@@ -1,0 +1,8 @@
+// @name: string.count
+// @category: string
+// @description: Conta ocorrências
+// @params: text, substring
+// Oracle tool (.roko) — executável via CALL string.count
+
+CALL native.string.count WITH text=${text}, substring=${substring} AS r
+RETURN ${r}

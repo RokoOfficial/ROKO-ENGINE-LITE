@@ -1,0 +1,8 @@
+// Oracle demo — string.append
+// Concatena strings
+
+SET text TO "Hello ROKO"
+SET suffix TO "!"
+
+CALL string.append WITH text=${text}, suffix=${suffix} AS resultado
+RETURN {"tool": "string.append", "resultado": resultado}

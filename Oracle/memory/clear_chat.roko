@@ -1,0 +1,8 @@
+// @name: memory.clear_chat
+// @category: memory
+// @description: Limpa historico de chat
+// @params: user_id
+// Oracle tool (.roko) — executável via CALL memory.clear_chat
+
+CALL native.memory.clear_chat WITH user_id=${user_id} AS r
+RETURN ${r}

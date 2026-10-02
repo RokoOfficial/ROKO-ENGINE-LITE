@@ -1,0 +1,8 @@
+// @name: log.warning
+// @category: log
+// @description: Registra log WARNING
+// @params: message
+// Oracle tool (.roko) — executável via CALL log.warning
+
+CALL native.log.warning WITH message=${message} AS r
+RETURN ${r}

@@ -1,0 +1,8 @@
+// @name: parallel.create_queue
+// @category: parallel
+// @description: Cria fila de execucao
+// @params: name, tipo, max_workers, timeout
+// Oracle tool (.roko) — executável via CALL parallel.create_queue
+
+CALL native.parallel.create_queue WITH name=${name}, tipo=${tipo}, max_workers=${max_workers}, timeout=${timeout} AS r
+RETURN ${r}

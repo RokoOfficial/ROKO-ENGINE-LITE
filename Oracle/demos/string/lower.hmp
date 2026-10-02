@@ -1,0 +1,7 @@
+// Oracle demo — string.lower
+// Converte para minúsculas
+
+SET text TO "Hello ROKO"
+
+CALL string.lower WITH text=${text} AS resultado
+RETURN {"tool": "string.lower", "resultado": resultado}

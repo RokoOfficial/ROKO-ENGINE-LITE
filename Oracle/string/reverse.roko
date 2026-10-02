@@ -1,0 +1,8 @@
+// @name: string.reverse
+// @category: string
+// @description: Inverte a string
+// @params: text
+// Oracle tool (.roko) — executável via CALL string.reverse
+
+CALL native.string.reverse WITH text=${text} AS r
+RETURN ${r}

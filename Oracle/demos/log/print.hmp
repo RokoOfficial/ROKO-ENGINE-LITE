@@ -1,0 +1,8 @@
+// Oracle demo — log.print
+// Registra log INFO
+
+SET message TO "teste log"
+SET level TO "info"
+
+CALL log.print WITH message=${message}, level=${level} AS resultado
+RETURN {"tool": "log.print", "resultado": resultado}

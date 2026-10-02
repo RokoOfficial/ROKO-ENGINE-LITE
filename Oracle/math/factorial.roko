@@ -1,0 +1,8 @@
+// @name: math.factorial
+// @category: math
+// @description: Fatorial de um número
+// @params: n
+// Oracle tool (.roko) — executável via CALL math.factorial
+
+CALL native.math.factorial WITH n=${n} AS r
+RETURN ${r}

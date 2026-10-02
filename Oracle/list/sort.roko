@@ -1,0 +1,8 @@
+// @name: list.sort
+// @category: list
+// @description: Ordena a lista
+// @params: items, reverse
+// Oracle tool (.roko) — executável via CALL list.sort
+
+CALL native.list.sort WITH items=${items}, reverse=${reverse} AS r
+RETURN ${r}

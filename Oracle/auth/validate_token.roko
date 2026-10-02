@@ -1,0 +1,8 @@
+// @name: auth.validate_token
+// @category: auth
+// @description: Valida um token JWT
+// @params: token
+// Oracle tool (.roko) — executável via CALL auth.validate_token
+
+CALL native.auth.validate_token WITH token=${token} AS r
+RETURN ${r}

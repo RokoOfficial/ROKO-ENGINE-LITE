@@ -1,0 +1,8 @@
+// @name: log.error
+// @category: log
+// @description: Registra log ERROR
+// @params: message
+// Oracle tool (.roko) — executável via CALL log.error
+
+CALL native.log.error WITH message=${message} AS r
+RETURN ${r}

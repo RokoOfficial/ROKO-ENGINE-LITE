@@ -1,0 +1,7 @@
+// Oracle demo — math.factorial
+// Fatorial de um número
+
+SET n TO 5
+
+CALL math.factorial WITH n=${n} AS resultado
+RETURN {"tool": "math.factorial", "resultado": resultado}

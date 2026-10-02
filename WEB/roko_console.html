@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROKO CONSOLE — Motor ROKO Script</title>
+<style>
+  :root{
+    --bg:        #0e0c09;
+    --panel:     #17130e;
+    --panel-2:   #1d1811;
+    --border:    #2c2418;
+    --border-2:  #3a2f1c;
+    --amber:     #ffb000;
+    --amber-dim: #7a5a12;
+    --amber-glow: rgba(255,176,0,.18);
+    --text:      #f1e9da;
+    --muted:     #8f8571;
+    --muted-2:   #5f5847;
+    --teal:      #59d6b0;
+    --red:       #ff5f56;
+    --blue:      #6fb4ff;
+    --violet:    #c79bff;
+    --mono: ui-monospace, "JetBrains Mono", "Fira Code", Menlo, Consolas, "SFMono-Regular", monospace;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ height:100%; }
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(255,176,0,.06), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--mono);
+    font-size:13.5px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{ background:var(--amber-glow); color:var(--amber); }
+
+  /* ---------- layout shell ---------- */
+  .shell{
+    display:grid;
+    grid-template-rows:auto 1fr auto;
+    height:100vh;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:14px 20px;
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg, rgba(255,255,255,.02), transparent);
+  }
+  .brand{ display:flex; align-items:baseline; gap:10px; }
+  .brand .mark{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--amber);
+    box-shadow:0 0 0 3px var(--amber-glow);
+    animation:pulse 2.4s ease-in-out infinite;
+    flex:none;
+  }
+  @keyframes pulse{
+    0%,100%{ box-shadow:0 0 0 3px var(--amber-glow); }
+    50%{ box-shadow:0 0 0 6px transparent; }
+  }
+  .brand h1{
+    font-size:15px; letter-spacing:.16em; font-weight:700; margin:0;
+    text-transform:uppercase; color:var(--text);
+  }
+  .brand span.sub{
+    color:var(--muted); font-size:11px; letter-spacing:.08em;
+  }
+
+  .conn{
+    margin-left:auto;
+    display:flex; align-items:center; gap:10px;
+  }
+  .conn label{
+    color:var(--muted); font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  }
+  .conn input{
+    background:var(--panel-2);
+    border:1px solid var(--border-2);
+    color:var(--text);
+    font-family:var(--mono);
+    font-size:12px;
+    padding:7px 10px;
+    border-radius:4px;
+    width:230px;
+    outline:none;
+  }
+  .conn input:focus{ border-color:var(--amber-dim); }
+  .status-dot{
+    width:7px; height:7px; border-radius:50%; background:var(--muted-2); flex:none;
+    transition:background .2s;
+  }
+  .status-dot.ok{ background:var(--teal); box-shadow:0 0 0 3px rgba(89,214,176,.15); }
+  .status-dot.err{ background:var(--red); box-shadow:0 0 0 3px rgba(255,95,86,.15); }
+  .status-text{ color:var(--muted); font-size:11px; }
+
+  /* ---------- main split ---------- */
+  main{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    min-height:0;
+  }
+  @media (max-width: 900px){
+    main{ grid-template-columns:1fr; grid-auto-rows:minmax(280px, auto); }
+  }
+
+  .pane{
+    display:flex; flex-direction:column;
+    min-height:0;
+    border-right:1px solid var(--border);
+  }
+  .pane:last-child{ border-right:none; }
+
+  .pane-head{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 16px;
+    border-bottom:1px solid var(--border);
+    background:var(--panel);
+  }
+  .pane-head .label{
+    font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+    font-weight:700;
+  }
+  .pane-head .count{
+    margin-left:auto; font-size:11px; color:var(--muted-2);
+  }
+
+  /* ---------- editor pane ---------- */
+  .editor-wrap{
+    flex:1; display:flex; min-height:0; position:relative;
+    background:var(--bg);
+  }
+  .lines{
+    flex:none; width:44px;
+    padding:14px 0;
+    text-align:right;
+    color:var(--muted-2);
+    font-size:12.5px; line-height:1.65;
+    user-select:none;
+    border-right:1px solid var(--border);
+    overflow:hidden;
+  }
+  .lines div{ padding-right:10px; }
+  textarea#editor{
+    flex:1;
+    resize:none;
+    border:none;
+    outline:none;
+    background:transparent;
+    color:var(--text);
+    font-family:var(--mono);
+    font-size:12.5px;
+    line-height:1.65;
+    padding:14px 16px;
+    tab-size:4;
+    caret-color:var(--amber);
+  }
+
+  .toolbar{
+    display:flex; align-items:center; gap:10px;
+    padding:12px 16px;
+    border-top:1px solid var(--border);
+    background:var(--panel);
+    flex-wrap:wrap;
+  }
+
+  button{
+    font-family:var(--mono);
+    cursor:pointer;
+    border-radius:4px;
+    border:1px solid var(--border-2);
+    background:var(--panel-2);
+    color:var(--text);
+    padding:9px 16px;
+    font-size:12px;
+    letter-spacing:.04em;
+    transition:border-color .15s, color .15s, background .15s;
+  }
+  button:hover{ border-color:var(--amber-dim); color:var(--amber); }
+  button:disabled{ opacity:.45; cursor:default; }
+
+  button.primary{
+    background:var(--amber);
+    border-color:var(--amber);
+    color:#1a1204;
+    font-weight:700;
+  }
+  button.primary:hover{
+    background:#ffc233;
+    color:#1a1204;
+    box-shadow:0 0 0 3px var(--amber-glow);
+  }
+  button.primary:disabled{ background:var(--amber-dim); border-color:var(--amber-dim); }
+
+  .toolbar .spacer{ flex:1; }
+  .toolbar label.chk{
+    display:flex; align-items:center; gap:6px;
+    color:var(--muted); font-size:11.5px;
+  }
+  .toolbar input[type=checkbox]{ accent-color:var(--amber); }
+
+  details.vars{
+    border-top:1px solid var(--border);
+    background:var(--panel);
+  }
+  details.vars summary{
+    padding:9px 16px;
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); cursor:pointer; user-select:none;
+  }
+  details.vars summary:hover{ color:var(--amber); }
+  textarea#varsInput{
+    width:100%; height:70px;
+    background:var(--bg);
+    border:none; border-top:1px solid var(--border);
+    color:var(--text); font-family:var(--mono); font-size:12px;
+    padding:10px 16px; resize:vertical; outline:none;
+  }
+
+  /* ---------- analysis pane ---------- */
+  .tabs{
+    display:flex; gap:2px;
+    padding:0 12px;
+    border-bottom:1px solid var(--border);
+    background:var(--panel);
+  }
+  .tab{
+    padding:10px 14px;
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted);
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+    user-select:none;
+  }
+  .tab:hover{ color:var(--text); }
+  .tab.active{ color:var(--amber); border-bottom-color:var(--amber); }
+
+  .tabpanels{ flex:1; min-height:0; position:relative; background:var(--bg); }
+  .tabpanel{
+    position:absolute; inset:0;
+    overflow-y:auto;
+    display:none;
+    padding:14px 16px;
+  }
+  .tabpanel.active{ display:block; }
+
+  /* empty state */
+  .empty{
+    height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color:var(--muted-2);
+    gap:8px; text-align:center; padding:20px;
+  }
+  .empty .glyph{ font-size:22px; color:var(--border-2); }
+  .empty p{ margin:0; font-size:12px; line-height:1.6; max-width:280px; }
+
+  /* output lines */
+  .out-line{
+    padding:5px 0;
+    border-bottom:1px dashed var(--border);
+    font-size:12.5px;
+    line-height:1.5;
+    white-space:pre-wrap;
+    word-break:break-word;
+  }
+  .out-line:last-child{ border-bottom:none; }
+  .out-line.error{ color:var(--red); }
+  .out-line.ret{ color:var(--teal); }
+
+  /* trace entries */
+  .trace-row{
+    display:flex; gap:10px; align-items:flex-start;
+    padding:6px 0;
+    border-bottom:1px solid var(--border);
+    font-size:12px;
+  }
+  .trace-row:last-child{ border-bottom:none; }
+  .trace-ln{
+    flex:none; width:34px; text-align:right;
+    color:var(--muted-2); font-size:11px; padding-top:2px;
+  }
+  .trace-indent{ flex:none; display:flex; }
+  .trace-indent i{
+    display:block; width:14px; align-self:stretch;
+    border-left:1px solid var(--border-2);
+    margin-right:0;
+  }
+  .trace-tag{
+    flex:none;
+    font-size:9.5px; font-weight:700; letter-spacing:.05em;
+    padding:2px 6px; border-radius:3px;
+    text-transform:uppercase;
+    white-space:nowrap;
+    height:fit-content;
+  }
+  .tag-set,.tag-assign{ background:rgba(111,180,255,.12); color:var(--blue); }
+  .tag-call{ background:rgba(255,176,0,.14); color:var(--amber); }
+  .tag-if{ background:rgba(199,155,255,.14); color:var(--violet); }
+  .tag-while_start,.tag-while_end,.tag-for_start,.tag-for_end{ background:rgba(89,214,176,.12); color:var(--teal); }
+  .tag-return{ background:rgba(89,214,176,.2); color:var(--teal); }
+  .tag-break,.tag-continue{ background:rgba(255,95,86,.12); color:var(--red); }
+  .tag-error{ background:rgba(255,95,86,.2); color:var(--red); }
+  .tag-expr{ background:rgba(143,133,113,.14); color:var(--muted); }
+
+  .trace-detail{ flex:1; color:var(--text); padding-top:1px; min-width:0; }
+  .trace-detail .k{ color:var(--muted); }
+  .trace-detail .v{ color:var(--text); }
+  .trace-detail code{
+    background:var(--panel-2); border:1px solid var(--border);
+    padding:1px 5px; border-radius:3px; color:var(--amber);
+    font-size:11px;
+  }
+
+  /* stats cards */
+  .stats-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:10px;
+    margin-bottom:16px;
+  }
+  .stat-card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:14px;
+  }
+  .stat-card .n{ font-size:22px; font-weight:700; color:var(--amber); line-height:1; }
+  .stat-card .l{ margin-top:6px; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+
+  .kv-table{ width:100%; border-collapse:collapse; }
+  .kv-table tr{ border-bottom:1px solid var(--border); }
+  .kv-table td{ padding:8px 4px; font-size:12px; vertical-align:top; }
+  .kv-table td:first-child{ color:var(--muted); width:130px; }
+  .kv-table td:last-child{ color:var(--text); word-break:break-word; }
+
+  pre.raw{
+    font-size:11.5px; line-height:1.6; color:var(--muted);
+    white-space:pre-wrap; word-break:break-word; margin:0;
+  }
+
+  /* ---------- footer / status bar ---------- */
+  footer{
+    display:flex; align-items:center; gap:18px;
+    padding:8px 20px;
+    border-top:1px solid var(--border);
+    background:var(--panel);
+    font-size:11px; color:var(--muted);
+  }
+  footer .divider{ width:1px; height:12px; background:var(--border-2); }
+  footer .ok-text{ color:var(--teal); }
+  footer .err-text{ color:var(--red); }
+  footer .spacer{ flex:1; }
+
+  /* scrollbars */
+  ::-webkit-scrollbar{ width:10px; height:10px; }
+  ::-webkit-scrollbar-track{ background:transparent; }
+  ::-webkit-scrollbar-thumb{ background:var(--border-2); border-radius:6px; }
+  ::-webkit-scrollbar-thumb:hover{ background:var(--amber-dim); }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header>
+    <div class="brand">
+      <span class="mark"></span>
+      <h1>ROKO CONSOLE</h1>
+      <span class="sub">motor ROKO SCRIPT v2</span>
+    </div>
+    <div class="conn">
+      <span class="status-dot" id="statusDot"></span>
+      <span class="status-text" id="statusText">desconectado</span>
+      <div class="divider" style="width:1px;height:14px;background:var(--border-2)"></div>
+      <label for="apiBase">API</label>
+      <input type="text" id="apiBase" value="http://localhost:8989" spellcheck="false">
+      <button id="pingBtn" title="Verificar conexão com /health">Testar</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- EDITOR -->
+    <section class="pane">
+      <div class="pane-head">
+        <span class="label">Script ROKO</span>
+        <span class="count" id="lineCount">1 linha</span>
+      </div>
+      <div class="editor-wrap">
+        <div class="lines" id="lineNumbers"><div>1</div></div>
+        <textarea id="editor" spellcheck="false" placeholder="// escreva seu script ROKO aqui
+SET a TO 10
+SET b TO 5
+IF a > b THEN
+    RETURN &quot;a e maior&quot;
+ELSE
+    RETURN &quot;b e maior&quot;
+END"></textarea>
+      </div>
+      <details class="vars">
+        <summary>Variáveis iniciais (JSON, opcional)</summary>
+        <textarea id="varsInput" placeholder='{ "exemplo": 1 }' spellcheck="false"></textarea>
+      </details>
+      <div class="toolbar">
+        <button class="primary" id="runBtn">▶ Executar</button>
+        <button id="validateBtn">Validar</button>
+        <button id="clearBtn">Limpar editor</button>
+        <label class="chk"><input type="checkbox" id="debugChk"> debug</label>
+        <div class="spacer"></div>
+        <button id="clearLogBtn">Limpar análise</button>
+      </div>
+    </section>
+
+    <!-- ANÁLISE -->
+    <section class="pane">
+      <div class="tabs">
+        <div class="tab active" data-tab="output">Saída</div>
+        <div class="tab" data-tab="trace">Trace</div>
+        <div class="tab" data-tab="stats">Estatísticas</div>
+        <div class="tab" data-tab="raw">JSON bruto</div>
+      </div>
+      <div class="tabpanels">
+        <div class="tabpanel active" id="panel-output">
+          <div class="empty" id="emptyState">
+            <div class="glyph">◇</div>
+            <p>Escreva um script e clique em <strong style="color:var(--muted)">Executar</strong> para ver a saída estruturada aqui.</p>
+          </div>
+        </div>
+        <div class="tabpanel" id="panel-trace"></div>
+        <div class="tabpanel" id="panel-stats"></div>
+        <div class="tabpanel" id="panel-raw"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span id="footStatus">pronto</span>
+    <div class="divider"></div>
+    <span id="footTime">—</span>
+    <div class="divider"></div>
+    <span id="footStmts">—</span>
+    <div class="spacer"></div>
+    <span style="color:var(--muted-2)">POST /script/execute</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  const editor      = document.getElementById('editor');
+  const lineNumbers = document.getElementById('lineNumbers');
+  const lineCount   = document.getElementById('lineCount');
+  const apiBaseInput= document.getElementById('apiBase');
+  const statusDot   = document.getElementById('statusDot');
+  const statusText  = document.getElementById('statusText');
+  const runBtn      = document.getElementById('runBtn');
+  const validateBtn = document.getElementById('validateBtn');
+  const clearBtn     = document.getElementById('clearBtn');
+  const clearLogBtn  = document.getElementById('clearLogBtn');
+  const pingBtn      = document.getElementById('pingBtn');
+  const debugChk     = document.getElementById('debugChk');
+  const varsInput    = document.getElementById('varsInput');
+  const emptyState   = document.getElementById('emptyState');
+  const footStatus   = document.getElementById('footStatus');
+  const footTime     = document.getElementById('footTime');
+  const footStmts    = document.getElementById('footStmts');
+
+  const panels = {
+    output: document.getElementById('panel-output'),
+    trace:  document.getElementById('panel-trace'),
+    stats:  document.getElementById('panel-stats'),
+    raw:    document.getElementById('panel-raw'),
+  };
+
+  /* ---------- editor: line numbers ---------- */
+  function syncLines(){
+    const n = editor.value.split('\n').length;
+    let html = '';
+    for(let i=1;i<=n;i++) html += '<div>'+i+'</div>';
+    lineNumbers.innerHTML = html;
+    lineCount.textContent = n + (n===1 ? ' linha' : ' linhas');
+    lineNumbers.scrollTop = editor.scrollTop;
+  }
+  editor.addEventListener('input', syncLines);
+  editor.addEventListener('scroll', ()=> lineNumbers.scrollTop = editor.scrollTop );
+  editor.addEventListener('keydown', function(e){
+    if(e.key === 'Tab'){
+      e.preventDefault();
+      const s = editor.selectionStart, en = editor.selectionEnd;
+      editor.value = editor.value.slice(0,s) + '    ' + editor.value.slice(en);
+      editor.selectionStart = editor.selectionEnd = s + 4;
+      syncLines();
+    }
+  });
+  syncLines();
+
+  /* ---------- tabs ---------- */
+  document.querySelectorAll('.tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-'+tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  function activateTab(name){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===name));
+    document.querySelectorAll('.tabpanel').forEach(p=>p.classList.toggle('active', p.id==='panel-'+name));
+  }
+
+  /* ---------- helpers ---------- */
+  function apiBase(){
+    return apiBaseInput.value.trim().replace(/\/+$/,'');
+  }
+
+  function fmtVal(v){
+    if(v === null || v === undefined) return 'null';
+    if(typeof v === 'string') return '"'+v+'"';
+    if(typeof v === 'object') return JSON.stringify(v);
+    return String(v);
+  }
+
+  function setStatus(ok, text){
+    statusDot.classList.remove('ok','err');
+    statusDot.classList.add(ok ? 'ok' : 'err');
+    statusText.textContent = text;
+  }
+
+  /* ---------- ping /health ---------- */
+  async function ping(){
+    setStatus(false, 'verificando...');
+    try{
+      const res = await fetch(apiBase() + '/health', {method:'GET'});
+      if(res.ok){
+        setStatus(true, 'conectado');
+      } else {
+        setStatus(false, 'API respondeu ' + res.status);
+      }
+    }catch(err){
+      setStatus(false, 'sem conexão');
+    }
+  }
+  pingBtn.addEventListener('click', ping);
+
+  /* ---------- clear ---------- */
+  clearBtn.addEventListener('click', ()=>{
+    editor.value = '';
+    syncLines();
+    editor.focus();
+  });
+
+  function resetPanels(){
+    emptyState.style.display = 'none';
+    panels.output.innerHTML = '';
+    panels.trace.innerHTML = '';
+    panels.stats.innerHTML = '';
+    panels.raw.innerHTML = '';
+  }
+
+  clearLogBtn.addEventListener('click', ()=>{
+    panels.output.innerHTML = '';
+    panels.trace.innerHTML = '';
+    panels.stats.innerHTML = '';
+    panels.raw.innerHTML = '';
+    emptyState.style.display = 'flex';
+    panels.output.appendChild(emptyState);
+    footStatus.textContent = 'pronto';
+    footTime.textContent = '—';
+    footStmts.textContent = '—';
+  });
+
+  /* ---------- render: output tab ---------- */
+  function renderOutput(result){
+    const wrap = document.createElement('div');
+    (result.output || []).forEach(line=>{
+      const div = document.createElement('div');
+      div.className = 'out-line' + (line.startsWith('[ERRO]') ? ' error' : line.startsWith('RETURN:') ? ' ret' : '');
+      div.textContent = line;
+      wrap.appendChild(div);
+    });
+    if(!result.output || result.output.length === 0){
+      const div = document.createElement('div');
+      div.className = 'out-line';
+      div.style.color = 'var(--muted)';
+      div.textContent = '(sem saída — script vazio ou sem instruções que produzam texto)';
+      wrap.appendChild(div);
+    }
+    panels.output.innerHTML = '';
+    panels.output.appendChild(wrap);
+  }
+
+  /* ---------- render: trace tab ---------- */
+  const TRACE_LABEL = {
+    set:'SET', assign:'SET', call:'CALL', if:'IF', while_start:'WHILE',
+    while_end:'WHILE FIM', for_start:'FOR', for_end:'FOR FIM',
+    return:'RETURN', break:'BREAK', continue:'CONTINUE',
+    expr:'EXPR', error:'ERRO',
+  };
+
+  function traceDetail(ev){
+    const t = ev.type || ev.event;
+    switch(t){
+      case 'set': case 'assign':
+        return '<span class="k">'+ev.name+'</span> = <code>'+fmtVal(ev.value)+'</code>';
+      case 'call':
+        return '<span class="k">'+ev.tool+'</span>(' +
+               Object.entries(ev.params||{}).map(([k,v])=>k+'='+fmtVal(v)).join(', ') +
+               ') → <code>'+fmtVal(ev.result)+'</code>';
+      case 'if':
+        return 'condição <code>'+ev.condition+'</code> → ' + (ev.result ? '<span style="color:var(--teal)">verdadeira</span>' : '<span style="color:var(--red)">falsa</span>');
+      case 'while_start':
+        return 'condição <code>'+ev.condition+'</code>';
+      case 'while_end':
+        return ev.iterations + ' iteração(ões)';
+      case 'for_start':
+        return 'variável <span class="k">'+ev.var+'</span>, ' + ev.length + ' item(ns)';
+      case 'for_end':
+        return ev.iterations + ' iteração(ões) executada(s)';
+      case 'return':
+        return '<code>'+fmtVal(ev.value)+'</code>';
+      case 'expr':
+        return '<code>'+fmtVal(ev.value)+'</code>';
+      case 'error':
+        return '<span style="color:var(--red)">'+(ev.message||'')+'</span>';
+      default:
+        return '';
+    }
+  }
+
+  function renderTrace(result){
+    const trace = result.trace || [];
+    if(trace.length === 0){
+      panels.trace.innerHTML = '<div class="empty"><div class="glyph">—</div><p>Sem eventos de trace nesta execução.</p></div>';
+      return;
+    }
+    const wrap = document.createElement('div');
+    trace.forEach(ev=>{
+      const row = document.createElement('div');
+      row.className = 'trace-row';
+
+      const ln = document.createElement('div');
+      ln.className = 'trace-ln';
+      ln.textContent = (ev.line !== undefined && ev.line !== null) ? ev.line : '·';
+      row.appendChild(ln);
+
+      const indent = document.createElement('div');
+      indent.className = 'trace-indent';
+      const depth = ev.depth || 0;
+      for(let i=0;i<depth;i++){
+        const guide = document.createElement('i');
+        indent.appendChild(guide);
+      }
+      row.appendChild(indent);
+
+      const tag = document.createElement('span');
+      const type = ev.type || ev.event;
+      tag.className = 'trace-tag tag-' + type;
+      tag.textContent = TRACE_LABEL[type] || type;
+      row.appendChild(tag);
+
+      const detail = document.createElement('div');
+      detail.className = 'trace-detail';
+      detail.innerHTML = traceDetail(ev);
+      row.appendChild(detail);
+
+      wrap.appendChild(row);
+    });
+    panels.trace.innerHTML = '';
+    panels.trace.appendChild(wrap);
+  }
+
+  /* ---------- render: stats tab ---------- */
+  function renderStats(result){
+    const stats = result.stats || {};
+    const wrap = document.createElement('div');
+
+    const grid = document.createElement('div');
+    grid.className = 'stats-grid';
+    const cards = [
+      ['Tempo (ms)', stats.elapsed_ms ?? '—'],
+      ['Instruções', stats.statements_executed ?? '—'],
+      ['Chamadas de tool', stats.tool_calls ?? '—'],
+      ['Passos de laço', stats.loop_steps ?? '—'],
+    ];
+    cards.forEach(([label, val])=>{
+      const card = document.createElement('div');
+      card.className = 'stat-card';
+      card.innerHTML = '<div class="n">'+val+'</div><div class="l">'+label+'</div>';
+      grid.appendChild(card);
+    });
+    wrap.appendChild(grid);
+
+    const table = document.createElement('table');
+    table.className = 'kv-table';
+    const rows = [
+      ['status', result.success ? '<span style="color:var(--teal)">sucesso</span>' : '<span style="color:var(--red)">erro</span>'],
+      ['valor de retorno', fmtVal(result.return_value)],
+      ['erro', result.error ? '<span style="color:var(--red)">'+result.error+'</span>' : '—'],
+      ['variáveis finais', '<code>'+JSON.stringify(result.variables || {})+'</code>'],
+    ];
+    rows.forEach(([k,v])=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>'+k+'</td><td>'+v+'</td>';
+      table.appendChild(tr);
+    });
+    wrap.appendChild(table);
+
+    panels.stats.innerHTML = '';
+    panels.stats.appendChild(wrap);
+  }
+
+  function renderRaw(result){
+    const pre = document.createElement('pre');
+    pre.className = 'raw';
+    pre.textContent = JSON.stringify(result, null, 2);
+    panels.raw.innerHTML = '';
+    panels.raw.appendChild(pre);
+  }
+
+  /* ---------- run / validate ---------- */
+  async function callApi(path, body){
+    const res = await fetch(apiBase() + path, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(body),
+    });
+    let json;
+    try{ json = await res.json(); }
+    catch(e){ throw new Error('A API não retornou JSON válido (status ' + res.status + ')'); }
+    return {res, json};
+  }
+
+  function parseVars(){
+    const raw = varsInput.value.trim();
+    if(!raw) return {};
+    try{
+      const parsed = JSON.parse(raw);
+      if(typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('deve ser um objeto JSON');
+      return parsed;
+    }catch(e){
+      throw new Error('Variáveis iniciais inválidas: ' + e.message);
+    }
+  }
+
+  async function run(){
+    resetPanels();
+    activateTab('output');
+    footStatus.textContent = 'executando...';
+    footTime.textContent = '—';
+    footStmts.textContent = '—';
+    runBtn.disabled = true;
+
+    let vars;
+    try{ vars = parseVars(); }
+    catch(e){
+      runBtn.disabled = false;
+      panels.output.innerHTML = '<div class="out-line error">'+e.message+'</div>';
+      footStatus.textContent = 'erro de entrada';
+      return;
+    }
+
+    try{
+      const {json} = await callApi('/script/execute', {
+        script: editor.value,
+        variables: vars,
+        debug: debugChk.checked,
+      });
+      renderOutput(json);
+      renderTrace(json);
+      renderStats(json);
+      renderRaw(json);
+      setStatus(true, 'conectado');
+
+      if(json.success){
+        footStatus.innerHTML = '<span class="ok-text">execução concluída</span>';
+      } else {
+        footStatus.innerHTML = '<span class="err-text">'+ (json.error || 'erro na execução') +'</span>';
+        activateTab('trace');
+      }
+      const st = json.stats || {};
+      footTime.textContent = (st.elapsed_ms ?? '—') + ' ms';
+      footStmts.textContent = (st.statements_executed ?? 0) + ' instruções · ' + (st.tool_calls ?? 0) + ' chamadas';
+    }catch(err){
+      setStatus(false, 'sem conexão');
+      panels.output.innerHTML = '<div class="out-line error">Falha ao contatar a API: '+err.message+'</div>';
+      footStatus.innerHTML = '<span class="err-text">falha de conexão</span>';
+    }finally{
+      runBtn.disabled = false;
+    }
+  }
+
+  async function validate(){
+    resetPanels();
+    activateTab('stats');
+    validateBtn.disabled = true;
+    footStatus.textContent = 'validando...';
+    try{
+      const {json} = await callApi('/script/validate', { script: editor.value });
+      setStatus(true, 'conectado');
+      const wrap = document.createElement('div');
+      const card = document.createElement('div');
+      card.className = 'stat-card';
+      card.style.marginBottom = '14px';
+      card.innerHTML = '<div class="n" style="color:'+(json.valid ? 'var(--teal)' : 'var(--red)')+'">'+
+                        (json.valid ? 'VÁLIDO' : 'INVÁLIDO')+'</div>' +
+                        '<div class="l">'+json.line_count+' linha(s) analisadas</div>';
+      wrap.appendChild(card);
+      (json.errors || []).forEach(e=>{
+        const div = document.createElement('div');
+        div.className = 'out-line error';
+        div.textContent = e;
+        wrap.appendChild(div);
+      });
+      panels.stats.appendChild(wrap);
+      footStatus.innerHTML = json.valid
+        ? '<span class="ok-text">script válido</span>'
+        : '<span class="err-text">script inválido</span>';
+    }catch(err){
+      setStatus(false, 'sem conexão');
+      footStatus.innerHTML = '<span class="err-text">falha de conexão</span>';
+      panels.stats.innerHTML = '<div class="out-line error">Falha ao contatar a API: '+err.message+'</div>';
+    }finally{
+      validateBtn.disabled = false;
+    }
+  }
+
+  runBtn.addEventListener('click', run);
+  validateBtn.addEventListener('click', validate);
+
+  // atalho: Ctrl/Cmd + Enter executa
+  editor.addEventListener('keydown', e=>{
+    if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
+      e.preventDefault();
+      run();
+    }
+  });
+
+  ping();
+})();
+</script>
+</body>
+</html>

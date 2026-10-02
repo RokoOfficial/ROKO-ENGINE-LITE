@@ -1,0 +1,9 @@
+// Oracle demo — invoca agent.run com plan math_demo
+CALL agent.run WITH
+  plan="plans/math_demo.roko",
+  goal="demo oracle agent",
+  max_steps=3,
+  user_id="oracle_demo",
+  id="oracle-agent-1"
+AS result
+RETURN result

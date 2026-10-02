@@ -1,0 +1,8 @@
+// @name: string.title
+// @category: string
+// @description: Converte para formato título
+// @params: text
+// Oracle tool (.roko) — executável via CALL string.title
+
+CALL native.string.title WITH text=${text} AS r
+RETURN ${r}

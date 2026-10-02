@@ -1,0 +1,8 @@
+// @name: memory.get_chat
+// @category: memory
+// @description: Obtem historico de chat
+// @params: user_id, last_n
+// Oracle tool (.roko) — executável via CALL memory.get_chat
+
+CALL native.memory.get_chat WITH user_id=${user_id}, last_n=${last_n} AS r
+RETURN ${r}

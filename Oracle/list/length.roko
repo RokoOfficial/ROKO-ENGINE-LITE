@@ -1,0 +1,8 @@
+// @name: list.length
+// @category: list
+// @description: Tamanho da lista
+// @params: items
+// Oracle tool (.roko) — executável via CALL list.length
+
+CALL native.list.length WITH items=${items} AS r
+RETURN ${r}

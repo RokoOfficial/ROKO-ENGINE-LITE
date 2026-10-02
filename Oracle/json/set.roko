@@ -1,0 +1,8 @@
+// @name: json.set
+// @category: json
+// @description: Define valor por chave
+// @params: obj, key, value
+// Oracle tool (.roko) — executável via CALL json.set
+
+CALL native.json.set WITH obj=${obj}, key=${key}, value=${value} AS r
+RETURN ${r}

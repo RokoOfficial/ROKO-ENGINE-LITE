@@ -1,0 +1,5 @@
+// Oracle demo — system.version
+// Versão do sistema
+
+CALL system.version AS resultado
+RETURN {"tool": "system.version", "resultado": resultado}

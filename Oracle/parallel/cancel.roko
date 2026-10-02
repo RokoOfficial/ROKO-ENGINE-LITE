@@ -1,0 +1,8 @@
+// @name: parallel.cancel
+// @category: parallel
+// @description: Cancela tarefa pendente
+// @params: task_id
+// Oracle tool (.roko) — executável via CALL parallel.cancel
+
+CALL native.parallel.cancel WITH task_id=${task_id} AS r
+RETURN ${r}

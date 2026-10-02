@@ -1,0 +1,8 @@
+// @name: list.create
+// @category: list
+// @description: Cria uma lista
+// @params: items
+// Oracle tool (.roko) — executável via CALL list.create
+
+CALL native.list.create WITH items=${items} AS r
+RETURN ${r}

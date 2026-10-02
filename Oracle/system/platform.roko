@@ -1,0 +1,8 @@
+// @name: system.platform
+// @category: system
+// @description: Informações da plataforma
+// @params: 
+// Oracle tool (.roko) — executável via CALL system.platform
+
+CALL native.system.platform AS r
+RETURN ${r}

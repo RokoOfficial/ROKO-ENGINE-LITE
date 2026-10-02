@@ -1,0 +1,8 @@
+// Oracle demo — string.contains
+// Verifica se contém substring
+
+SET text TO "Hello ROKO"
+SET substring TO "ROKO"
+
+CALL string.contains WITH text=${text}, substring=${substring} AS resultado
+RETURN {"tool": "string.contains", "resultado": resultado}

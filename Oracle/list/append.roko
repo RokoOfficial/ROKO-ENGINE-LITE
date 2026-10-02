@@ -1,0 +1,8 @@
+// @name: list.append
+// @category: list
+// @description: Adiciona item ao final
+// @params: items, item
+// Oracle tool (.roko) — executável via CALL list.append
+
+CALL native.list.append WITH items=${items}, item=${item} AS r
+RETURN ${r}

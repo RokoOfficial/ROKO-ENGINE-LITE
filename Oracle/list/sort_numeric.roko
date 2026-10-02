@@ -1,0 +1,8 @@
+// @name: list.sort_numeric
+// @category: list
+// @description: Ordena numericamente
+// @params: items, reverse
+// Oracle tool (.roko) — executável via CALL list.sort_numeric
+
+CALL native.list.sort_numeric WITH items=${items}, reverse=${reverse} AS r
+RETURN ${r}

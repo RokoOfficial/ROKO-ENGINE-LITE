@@ -1,0 +1,8 @@
+// @name: list.remove
+// @category: list
+// @description: Remove item da lista
+// @params: items, item
+// Oracle tool (.roko) — executável via CALL list.remove
+
+CALL native.list.remove WITH items=${items}, item=${item} AS r
+RETURN ${r}

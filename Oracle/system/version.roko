@@ -1,0 +1,8 @@
+// @name: system.version
+// @category: system
+// @description: Versão do sistema
+// @params: 
+// Oracle tool (.roko) — executável via CALL system.version
+
+CALL native.system.version AS r
+RETURN ${r}

@@ -1,0 +1,8 @@
+// @name: memory.build_context
+// @category: memory
+// @description: Monta contexto para system prompt
+// @params: user_id, query
+// Oracle tool (.roko) — executável via CALL memory.build_context
+
+CALL native.memory.build_context WITH user_id=${user_id}, query=${query} AS r
+RETURN ${r}

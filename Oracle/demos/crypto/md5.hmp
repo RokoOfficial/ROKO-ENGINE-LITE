@@ -1,0 +1,7 @@
+// Oracle demo — crypto.md5
+// Gera hash MD5
+
+SET text TO "Hello ROKO"
+
+CALL crypto.md5 WITH text=${text} AS resultado
+RETURN {"tool": "crypto.md5", "resultado": resultado}

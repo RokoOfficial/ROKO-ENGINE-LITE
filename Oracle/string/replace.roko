@@ -1,0 +1,8 @@
+// @name: string.replace
+// @category: string
+// @description: Substitui texto
+// @params: text, old, new
+// Oracle tool (.roko) — executável via CALL string.replace
+
+CALL native.string.replace WITH text=${text}, old=${old}, new=${new} AS r
+RETURN ${r}

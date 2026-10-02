@@ -1,0 +1,8 @@
+// @name: random.choice
+// @category: random
+// @description: Escolhe item aleatório
+// @params: items
+// Oracle tool (.roko) — executável via CALL random.choice
+
+CALL native.random.choice WITH items=${items} AS r
+RETURN ${r}

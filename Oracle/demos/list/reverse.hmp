@@ -1,0 +1,7 @@
+// Oracle demo — list.reverse
+// Inverte a lista
+
+SET items TO [1, 2, 3]
+
+CALL list.reverse WITH items=${items} AS resultado
+RETURN {"tool": "list.reverse", "resultado": resultado}

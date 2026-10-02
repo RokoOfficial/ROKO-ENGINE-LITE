@@ -1,0 +1,7 @@
+// Oracle demo — log.warning
+// Registra log WARNING
+
+SET message TO "teste log"
+
+CALL log.warning WITH message=${message} AS resultado
+RETURN {"tool": "log.warning", "resultado": resultado}

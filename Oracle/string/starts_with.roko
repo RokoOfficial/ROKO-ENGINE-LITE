@@ -1,0 +1,8 @@
+// @name: string.starts_with
+// @category: string
+// @description: Verifica prefixo
+// @params: text, prefix
+// Oracle tool (.roko) — executável via CALL string.starts_with
+
+CALL native.string.starts_with WITH text=${text}, prefix=${prefix} AS r
+RETURN ${r}

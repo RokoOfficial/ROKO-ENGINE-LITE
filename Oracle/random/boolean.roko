@@ -1,0 +1,8 @@
+// @name: random.boolean
+// @category: random
+// @description: Valor booleano aleatório
+// @params: 
+// Oracle tool (.roko) — executável via CALL random.boolean
+
+CALL native.random.boolean AS r
+RETURN ${r}

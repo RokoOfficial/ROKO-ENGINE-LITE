@@ -1,0 +1,8 @@
+// @name: date.format
+// @category: date
+// @description: Formata data
+// @params: date_str, format_str
+// Oracle tool (.roko) — executável via CALL date.format
+
+CALL native.date.format WITH date_str=${date_str}, format_str=${format_str} AS r
+RETURN ${r}

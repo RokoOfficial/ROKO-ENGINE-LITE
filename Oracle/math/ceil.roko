@@ -1,0 +1,8 @@
+// @name: math.ceil
+// @category: math
+// @description: Arredonda para cima
+// @params: a
+// Oracle tool (.roko) — executável via CALL math.ceil
+
+CALL native.math.ceil WITH a=${a} AS r
+RETURN ${r}

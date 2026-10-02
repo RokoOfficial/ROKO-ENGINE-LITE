@@ -1,0 +1,7 @@
+// Oracle demo — math.max
+// Retorna o maior valor
+
+SET args... TO ""
+
+CALL math.max WITH args...=${args...} AS resultado
+RETURN {"tool": "math.max", "resultado": resultado}

@@ -1,0 +1,8 @@
+// @name: parallel.submit
+// @category: parallel
+// @description: Submete trabalho paralelo
+// @params: dados, operacao, queue_id, prioridade, deadline
+// Oracle tool (.roko) — executável via CALL parallel.submit
+
+CALL native.parallel.submit WITH dados=${dados}, operacao=${operacao}, queue_id=${queue_id}, prioridade=${prioridade}, deadline=${deadline} AS r
+RETURN ${r}

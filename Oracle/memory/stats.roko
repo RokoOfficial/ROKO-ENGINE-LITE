@@ -1,0 +1,8 @@
+// @name: memory.stats
+// @category: memory
+// @description: Estatisticas de memoria
+// @params: user_id
+// Oracle tool (.roko) — executável via CALL memory.stats
+
+CALL native.memory.stats WITH user_id=${user_id} AS r
+RETURN ${r}

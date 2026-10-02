@@ -1,0 +1,7 @@
+// Oracle demo — math.ceil
+// Arredonda para cima
+
+SET a TO 7
+
+CALL math.ceil WITH a=${a} AS resultado
+RETURN {"tool": "math.ceil", "resultado": resultado}

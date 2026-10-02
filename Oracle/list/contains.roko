@@ -1,0 +1,8 @@
+// @name: list.contains
+// @category: list
+// @description: Verifica se contém item
+// @params: items, value
+// Oracle tool (.roko) — executável via CALL list.contains
+
+CALL native.list.contains WITH items=${items}, value=${value} AS r
+RETURN ${r}

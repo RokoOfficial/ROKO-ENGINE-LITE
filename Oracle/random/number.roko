@@ -1,0 +1,8 @@
+// @name: random.number
+// @category: random
+// @description: Número inteiro aleatório
+// @params: min_val, max_val
+// Oracle tool (.roko) — executável via CALL random.number
+
+CALL native.random.number WITH min_val=${min_val}, max_val=${max_val} AS r
+RETURN ${r}

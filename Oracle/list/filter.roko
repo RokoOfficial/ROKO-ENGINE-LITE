@@ -1,0 +1,8 @@
+// @name: list.filter
+// @category: list
+// @description: Filtra a lista
+// @params: items, condition
+// Oracle tool (.roko) — executável via CALL list.filter
+
+CALL native.list.filter WITH items=${items}, condition=${condition} AS r
+RETURN ${r}

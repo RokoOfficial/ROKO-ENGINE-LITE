@@ -1,0 +1,8 @@
+// @name: log.print
+// @category: log
+// @description: Registra log INFO
+// @params: message, level
+// Oracle tool (.roko) — executável via CALL log.print
+
+CALL native.log.print WITH message=${message}, level=${level} AS r
+RETURN ${r}

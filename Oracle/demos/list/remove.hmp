@@ -1,0 +1,8 @@
+// Oracle demo — list.remove
+// Remove item da lista
+
+SET items TO [1, 2, 3]
+SET item TO 99
+
+CALL list.remove WITH items=${items}, item=${item} AS resultado
+RETURN {"tool": "list.remove", "resultado": resultado}

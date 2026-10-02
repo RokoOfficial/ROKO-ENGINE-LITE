@@ -1,0 +1,3 @@
+# `cron.delete`
+
+Remove job

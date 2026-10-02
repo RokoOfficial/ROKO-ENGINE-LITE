@@ -1,0 +1,8 @@
+// @name: parallel.await
+// @category: parallel
+// @description: Aguarda resultado de tarefa
+// @params: task_id, timeout
+// Oracle tool (.roko) — executável via CALL parallel.await
+
+CALL native.parallel.await WITH task_id=${task_id}, timeout=${timeout} AS r
+RETURN ${r}

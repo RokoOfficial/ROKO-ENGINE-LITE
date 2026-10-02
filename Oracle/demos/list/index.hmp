@@ -1,0 +1,8 @@
+// Oracle demo — list.index
+// Índice do item
+
+SET items TO [1, 2, 3]
+SET value TO 42
+
+CALL list.index WITH items=${items}, value=${value} AS resultado
+RETURN {"tool": "list.index", "resultado": resultado}

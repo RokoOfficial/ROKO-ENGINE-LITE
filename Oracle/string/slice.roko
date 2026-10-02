@@ -1,0 +1,8 @@
+// @name: string.slice
+// @category: string
+// @description: Fatiamento de string
+// @params: text, start, end
+// Oracle tool (.roko) — executável via CALL string.slice
+
+CALL native.string.slice WITH text=${text}, start=${start}, end=${end} AS r
+RETURN ${r}

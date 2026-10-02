@@ -1,0 +1,8 @@
+// Oracle demo — list.sort_numeric
+// Ordena numericamente
+
+SET items TO [1, 2, 3]
+SET reverse TO false
+
+CALL list.sort_numeric WITH items=${items}, reverse=${reverse} AS resultado
+RETURN {"tool": "list.sort_numeric", "resultado": resultado}

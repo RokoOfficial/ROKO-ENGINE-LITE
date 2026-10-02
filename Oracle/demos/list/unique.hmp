@@ -1,0 +1,7 @@
+// Oracle demo — list.unique
+// Remove duplicatas
+
+SET items TO [1, 2, 3]
+
+CALL list.unique WITH items=${items} AS resultado
+RETURN {"tool": "list.unique", "resultado": resultado}

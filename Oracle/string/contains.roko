@@ -1,0 +1,8 @@
+// @name: string.contains
+// @category: string
+// @description: Verifica se contém substring
+// @params: text, substring
+// Oracle tool (.roko) — executável via CALL string.contains
+
+CALL native.string.contains WITH text=${text}, substring=${substring} AS r
+RETURN ${r}

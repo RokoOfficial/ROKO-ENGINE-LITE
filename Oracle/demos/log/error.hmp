@@ -1,0 +1,7 @@
+// Oracle demo — log.error
+// Registra log ERROR
+
+SET message TO "teste log"
+
+CALL log.error WITH message=${message} AS resultado
+RETURN {"tool": "log.error", "resultado": resultado}

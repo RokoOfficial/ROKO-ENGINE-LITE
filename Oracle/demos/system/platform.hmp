@@ -1,0 +1,5 @@
+// Oracle demo — system.platform
+// Informações da plataforma
+
+CALL system.platform AS resultado
+RETURN {"tool": "system.platform", "resultado": resultado}

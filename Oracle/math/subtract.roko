@@ -1,0 +1,7 @@
+// @name: math.subtract
+// @category: math
+// @description: Subtrai dois números
+// @params: a, b
+// Oracle tool (.roko) — executável via CALL math.subtract
+
+RETURN ${a} - ${b}

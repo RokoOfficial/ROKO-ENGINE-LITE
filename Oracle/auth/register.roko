@@ -1,0 +1,8 @@
+// @name: auth.register
+// @category: auth
+// @description: Regista um novo utilizador
+// @params: username, email, password
+// Oracle tool (.roko) — executável via CALL auth.register
+
+CALL native.auth.register WITH username=${username}, email=${email}, password=${password} AS r
+RETURN ${r}

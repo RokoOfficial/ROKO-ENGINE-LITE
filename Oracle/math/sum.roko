@@ -1,0 +1,7 @@
+// @name: math.sum
+// @category: math
+// @description: Soma dois números
+// @params: a, b
+// Oracle tool (.roko) — executável via CALL math.sum
+
+RETURN ${a} + ${b}

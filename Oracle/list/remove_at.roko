@@ -1,0 +1,8 @@
+// @name: list.remove_at
+// @category: list
+// @description: Remove item por índice
+// @params: items, index
+// Oracle tool (.roko) — executável via CALL list.remove_at
+
+CALL native.list.remove_at WITH items=${items}, index=${index} AS r
+RETURN ${r}

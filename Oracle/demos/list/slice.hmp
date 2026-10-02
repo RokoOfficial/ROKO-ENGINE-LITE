@@ -1,0 +1,9 @@
+// Oracle demo — list.slice
+// Fatiamento de lista
+
+SET items TO [1, 2, 3]
+SET start TO 0
+SET end TO 5
+
+CALL list.slice WITH items=${items}, start=${start}, end=${end} AS resultado
+RETURN {"tool": "list.slice", "resultado": resultado}

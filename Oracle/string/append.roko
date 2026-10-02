@@ -1,0 +1,8 @@
+// @name: string.append
+// @category: string
+// @description: Concatena strings
+// @params: text, suffix
+// Oracle tool (.roko) — executável via CALL string.append
+
+CALL native.string.append WITH text=${text}, suffix=${suffix} AS r
+RETURN ${r}

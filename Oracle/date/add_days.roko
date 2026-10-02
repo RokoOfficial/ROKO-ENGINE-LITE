@@ -1,0 +1,8 @@
+// @name: date.add_days
+// @category: date
+// @description: Adiciona dias a uma data
+// @params: date_str, days
+// Oracle tool (.roko) — executável via CALL date.add_days
+
+CALL native.date.add_days WITH date_str=${date_str}, days=${days} AS r
+RETURN ${r}

@@ -1,0 +1,8 @@
+// @name: http.delete
+// @category: http
+// @description: Requisição HTTP DELETE
+// @params: url, headers
+// Oracle tool (.roko) — executável via CALL http.delete
+
+CALL native.http.delete WITH url=${url}, headers=${headers} AS r
+RETURN ${r}

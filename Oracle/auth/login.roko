@@ -1,0 +1,8 @@
+// @name: auth.login
+// @category: auth
+// @description: Autentica utilizador e devolve token JWT
+// @params: username, password
+// Oracle tool (.roko) — executável via CALL auth.login
+
+CALL native.auth.login WITH username=${username}, password=${password} AS r
+RETURN ${r}

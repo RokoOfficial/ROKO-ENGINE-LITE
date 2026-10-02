@@ -1,0 +1,33 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Implementação da tool `date.add_days`."""
+from __future__ import annotations
+
+from typing import Any, List, Optional, Union
+import ast
+import datetime as dt
+import hashlib
+import json
+import math
+import os
+import random
+import re
+import time
+import unicodedata
+import uuid
+from pathlib import Path
+
+try:
+    import requests
+except ImportError:
+    requests = None  # type: ignore
+
+REQUEST_TIMEOUT = 30
+LOGS_FOLDER = Path(__file__).resolve().parents[3] / "logs"
+LOGS_FOLDER.mkdir(parents=True, exist_ok=True)
+
+def date_add_days(date_str: str, days: int) -> str:
+    """Adiciona dias a uma data."""
+    dt_obj = dt.datetime.fromisoformat(str(date_str))
+    return (dt_obj + dt.timedelta(days=int(days))).isoformat()
+

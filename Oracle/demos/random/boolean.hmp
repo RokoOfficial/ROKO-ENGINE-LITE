@@ -1,0 +1,5 @@
+// Oracle demo — random.boolean
+// Valor booleano aleatório
+
+CALL random.boolean AS resultado
+RETURN {"tool": "random.boolean", "resultado": resultado}

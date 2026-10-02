@@ -1,0 +1,8 @@
+// Demo parallel motor
+SET nums TO [4, 9, 16, 25, 36, 49, 64, 81]
+CALL parallel.execute WITH dados=${nums}, operacao="math.sqrt" AS sync_out
+CALL parallel.create_queue WITH name="batch", tipo="fifo", max_workers=4 AS q
+CALL parallel.submit WITH dados=${nums}, operacao="math.sqrt", queue_id=${q.queue_id} AS tid
+CALL parallel.await WITH task_id=${tid.task_id}, timeout=15 AS async_out
+CALL parallel.info AS info
+RETURN {"sync": sync_out, "async": async_out, "info": info}

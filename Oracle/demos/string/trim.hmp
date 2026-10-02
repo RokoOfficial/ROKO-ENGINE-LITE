@@ -1,0 +1,7 @@
+// Oracle demo — string.trim
+// Remove espaços em branco
+
+SET text TO "Hello ROKO"
+
+CALL string.trim WITH text=${text} AS resultado
+RETURN {"tool": "string.trim", "resultado": resultado}

@@ -1,0 +1,8 @@
+// @name: log.debug
+// @category: log
+// @description: Registra log DEBUG
+// @params: message
+// Oracle tool (.roko) — executável via CALL log.debug
+
+CALL native.log.debug WITH message=${message} AS r
+RETURN ${r}

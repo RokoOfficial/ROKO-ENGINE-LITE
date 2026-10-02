@@ -1,0 +1,7 @@
+// Oracle demo — random.choice
+// Escolhe item aleatório
+
+SET items TO [1, 2, 3]
+
+CALL random.choice WITH items=${items} AS resultado
+RETURN {"tool": "random.choice", "resultado": resultado}

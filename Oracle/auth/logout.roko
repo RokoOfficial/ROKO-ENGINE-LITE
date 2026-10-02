@@ -1,0 +1,8 @@
+// @name: auth.logout
+// @category: auth
+// @description: Revoga um token JWT
+// @params: token
+// Oracle tool (.roko) — executável via CALL auth.logout
+
+CALL native.auth.logout WITH token=${token} AS r
+RETURN ${r}

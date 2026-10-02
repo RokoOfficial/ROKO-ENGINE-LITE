@@ -1,0 +1,8 @@
+// @name: memory.add_chat
+// @category: memory
+// @description: Adiciona mensagem ao chat
+// @params: user_id, role, content
+// Oracle tool (.roko) — executável via CALL memory.add_chat
+
+CALL native.memory.add_chat WITH user_id=${user_id}, role=${role}, content=${content} AS r
+RETURN ${r}

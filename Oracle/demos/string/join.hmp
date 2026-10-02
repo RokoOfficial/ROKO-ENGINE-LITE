@@ -1,0 +1,8 @@
+// Oracle demo — string.join
+// Junta lista em string
+
+SET items TO [1, 2, 3]
+SET separator TO " "
+
+CALL string.join WITH items=${items}, separator=${separator} AS resultado
+RETURN {"tool": "string.join", "resultado": resultado}

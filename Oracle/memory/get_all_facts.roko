@@ -1,0 +1,8 @@
+// @name: memory.get_all_facts
+// @category: memory
+// @description: Lista todos os factos
+// @params: user_id, min_importance
+// Oracle tool (.roko) — executável via CALL memory.get_all_facts
+
+CALL native.memory.get_all_facts WITH user_id=${user_id}, min_importance=${min_importance} AS r
+RETURN ${r}

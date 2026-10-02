@@ -1,0 +1,8 @@
+// Oracle demo — list.sort
+// Ordena a lista
+
+SET items TO [1, 2, 3]
+SET reverse TO false
+
+CALL list.sort WITH items=${items}, reverse=${reverse} AS resultado
+RETURN {"tool": "list.sort", "resultado": resultado}

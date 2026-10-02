@@ -1,0 +1,9 @@
+// Oracle demo — http.post
+// Requisição HTTP POST
+
+SET url TO "https://httpbin.org/get"
+SET data TO {"ping": 1}
+SET headers TO {}
+
+CALL http.post WITH url=${url}, data=${data}, headers=${headers} AS resultado
+RETURN {"tool": "http.post", "resultado": resultado}

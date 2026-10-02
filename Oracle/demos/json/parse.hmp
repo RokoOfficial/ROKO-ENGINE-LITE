@@ -1,0 +1,7 @@
+// Oracle demo — json.parse
+// Converte JSON para objeto
+
+SET json_string TO "{\"ok\": true}"
+
+CALL json.parse WITH json_string=${json_string} AS resultado
+RETURN {"tool": "json.parse", "resultado": resultado}

@@ -1,0 +1,7 @@
+// Oracle demo — string.capitalize
+// Capitaliza a string
+
+SET text TO "Hello ROKO"
+
+CALL string.capitalize WITH text=${text} AS resultado
+RETURN {"tool": "string.capitalize", "resultado": resultado}

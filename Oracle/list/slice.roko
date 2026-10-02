@@ -1,0 +1,8 @@
+// @name: list.slice
+// @category: list
+// @description: Fatiamento de lista
+// @params: items, start, end
+// Oracle tool (.roko) — executável via CALL list.slice
+
+CALL native.list.slice WITH items=${items}, start=${start}, end=${end} AS r
+RETURN ${r}

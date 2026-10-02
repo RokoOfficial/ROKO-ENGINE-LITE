@@ -1,0 +1,7 @@
+// Oracle demo — math.min
+// Retorna o menor valor
+
+SET args... TO ""
+
+CALL math.min WITH args...=${args...} AS resultado
+RETURN {"tool": "math.min", "resultado": resultado}

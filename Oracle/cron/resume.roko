@@ -1,0 +1,8 @@
+// @name: cron.resume
+// @category: cron
+// @description: Retoma job
+// @params: user_id, job_id
+// Oracle tool (.roko) — executável via CALL cron.resume
+
+CALL native.cron.resume WITH user_id=${user_id}, job_id=${job_id} AS r
+RETURN ${r}

@@ -1,0 +1,7 @@
+// Oracle demo — math.sqrt
+// Raiz quadrada
+
+SET a TO 7
+
+CALL math.sqrt WITH a=${a} AS resultado
+RETURN {"tool": "math.sqrt", "resultado": resultado}

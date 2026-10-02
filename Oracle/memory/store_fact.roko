@@ -1,0 +1,8 @@
+// @name: memory.store_fact
+// @category: memory
+// @description: Guarda um facto chave-valor
+// @params: user_id, key, value, importance, category
+// Oracle tool (.roko) — executável via CALL memory.store_fact
+
+CALL native.memory.store_fact WITH user_id=${user_id}, key=${key}, value=${value}, importance=${importance}, category=${category} AS r
+RETURN ${r}

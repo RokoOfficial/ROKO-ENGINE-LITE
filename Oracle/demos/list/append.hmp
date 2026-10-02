@@ -1,0 +1,8 @@
+// Oracle demo — list.append
+// Adiciona item ao final
+
+SET items TO [1, 2, 3]
+SET item TO 99
+
+CALL list.append WITH items=${items}, item=${item} AS resultado
+RETURN {"tool": "list.append", "resultado": resultado}

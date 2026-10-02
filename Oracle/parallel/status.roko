@@ -1,0 +1,8 @@
+// @name: parallel.status
+// @category: parallel
+// @description: Estado das filas
+// @params: queue_id
+// Oracle tool (.roko) — executável via CALL parallel.status
+
+CALL native.parallel.status WITH queue_id=${queue_id} AS r
+RETURN ${r}

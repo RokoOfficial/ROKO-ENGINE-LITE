@@ -1,0 +1,8 @@
+// @name: string.length
+// @category: string
+// @description: Tamanho da string
+// @params: text
+// Oracle tool (.roko) — executável via CALL string.length
+
+CALL native.string.length WITH text=${text} AS r
+RETURN ${r}

@@ -1,0 +1,9 @@
+// Oracle demo — string.pad_right
+// Preenche à direita
+
+SET text TO "Hello ROKO"
+SET length TO 10
+SET char TO "*"
+
+CALL string.pad_right WITH text=${text}, length=${length}, char=${char} AS resultado
+RETURN {"tool": "string.pad_right", "resultado": resultado}

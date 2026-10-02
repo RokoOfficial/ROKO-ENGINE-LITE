@@ -1,0 +1,8 @@
+// Oracle demo — list.contains
+// Verifica se contém item
+
+SET items TO [1, 2, 3]
+SET value TO 42
+
+CALL list.contains WITH items=${items}, value=${value} AS resultado
+RETURN {"tool": "list.contains", "resultado": resultado}

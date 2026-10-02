@@ -1,0 +1,8 @@
+// @name: memory.search_facts
+// @category: memory
+// @description: Pesquisa factos
+// @params: user_id, term
+// Oracle tool (.roko) — executável via CALL memory.search_facts
+
+CALL native.memory.search_facts WITH user_id=${user_id}, term=${term} AS r
+RETURN ${r}

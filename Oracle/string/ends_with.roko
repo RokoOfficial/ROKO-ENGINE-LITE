@@ -1,0 +1,8 @@
+// @name: string.ends_with
+// @category: string
+// @description: Verifica sufixo
+// @params: text, suffix
+// Oracle tool (.roko) — executável via CALL string.ends_with
+
+CALL native.string.ends_with WITH text=${text}, suffix=${suffix} AS r
+RETURN ${r}

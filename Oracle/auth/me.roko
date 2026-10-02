@@ -1,0 +1,8 @@
+// @name: auth.me
+// @category: auth
+// @description: Devolve dados do utilizador a partir do token
+// @params: token
+// Oracle tool (.roko) — executável via CALL auth.me
+
+CALL native.auth.me WITH token=${token} AS r
+RETURN ${r}

@@ -1,0 +1,8 @@
+// Oracle demo — math.multiply
+// Multiplica dois números
+
+SET a TO 7
+SET b TO 8
+
+CALL math.multiply WITH a=${a}, b=${b} AS resultado
+RETURN {"tool": "math.multiply", "resultado": resultado}

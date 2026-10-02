@@ -1,0 +1,7 @@
+// Oracle demo — json.stringify
+// Converte objeto para JSON
+
+SET obj TO {"x": 1, "y": 2}
+
+CALL json.stringify WITH obj=${obj} AS resultado
+RETURN {"tool": "json.stringify", "resultado": resultado}

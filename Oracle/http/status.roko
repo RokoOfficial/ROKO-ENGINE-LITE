@@ -1,0 +1,8 @@
+// @name: http.status
+// @category: http
+// @description: Verifica status HTTP
+// @params: url
+// Oracle tool (.roko) — executável via CALL http.status
+
+CALL native.http.status WITH url=${url} AS r
+RETURN ${r}

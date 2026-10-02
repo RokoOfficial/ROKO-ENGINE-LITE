@@ -1,0 +1,7 @@
+// Oracle demo — crypto.hash
+// Gera hash SHA-256
+
+SET text TO "Hello ROKO"
+
+CALL crypto.hash WITH text=${text} AS resultado
+RETURN {"tool": "crypto.hash", "resultado": resultado}

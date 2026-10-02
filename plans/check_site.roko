@@ -1,0 +1,5 @@
+// Plan exemplo — status HTTP
+CALL memory.build_context WITH user_id=${user_id}, query=${goal} AS ctx
+SET url TO "https://example.com"
+CALL http.status WITH url=${url} AS st
+RETURN {"ok": true, "url": ${url}, "status": ${st}, "step": ${step}}

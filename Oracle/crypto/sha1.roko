@@ -1,0 +1,8 @@
+// @name: crypto.sha1
+// @category: crypto
+// @description: Gera hash SHA-1
+// @params: text
+// Oracle tool (.roko) — executável via CALL crypto.sha1
+
+CALL native.crypto.sha1 WITH text=${text} AS r
+RETURN ${r}

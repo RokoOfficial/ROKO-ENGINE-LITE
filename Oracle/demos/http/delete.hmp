@@ -1,0 +1,8 @@
+// Oracle demo — http.delete
+// Requisição HTTP DELETE
+
+SET url TO "https://httpbin.org/get"
+SET headers TO {}
+
+CALL http.delete WITH url=${url}, headers=${headers} AS resultado
+RETURN {"tool": "http.delete", "resultado": resultado}

@@ -1,0 +1,8 @@
+// Oracle demo — string.split
+// Divide string em lista
+
+SET text TO "Hello ROKO"
+SET separator TO " "
+
+CALL string.split WITH text=${text}, separator=${separator} AS resultado
+RETURN {"tool": "string.split", "resultado": resultado}

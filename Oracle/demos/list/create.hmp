@@ -1,0 +1,7 @@
+// Oracle demo — list.create
+// Cria uma lista
+
+SET items... TO ""
+
+CALL list.create WITH items...=${items...} AS resultado
+RETURN {"tool": "list.create", "resultado": resultado}

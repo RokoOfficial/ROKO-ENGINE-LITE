@@ -1,0 +1,8 @@
+// @name: string.join
+// @category: string
+// @description: Junta lista em string
+// @params: items, separator
+// Oracle tool (.roko) — executável via CALL string.join
+
+CALL native.string.join WITH items=${items}, separator=${separator} AS r
+RETURN ${r}

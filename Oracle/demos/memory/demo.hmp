@@ -1,0 +1,8 @@
+// Demo HGR memory
+SET uid TO "demo_user"
+CALL memory.extract_facts WITH user_id=${uid}, text="Me chamo Ada e vivo em Londres. Prefiro Python." AS extracted
+CALL memory.store_fact WITH user_id=${uid}, key="projeto", value="ROKO", importance=0.8, category="project" AS stored
+CALL memory.record_step WITH user_id=${uid}, query="quem sou", thought="consultar factos do user", action="continue", confidence=0.85 AS step
+CALL memory.build_context WITH user_id=${uid}, query="quem sou eu" AS ctx
+CALL memory.stats WITH user_id=${uid} AS stats
+RETURN {"extracted": extracted, "context": ctx, "stats": stats}

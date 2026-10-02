@@ -1,0 +1,5 @@
+// Demo auth
+CALL auth.register WITH username="demo_ada", email="ada@demo.roko", password="Secret123" AS reg
+CALL auth.login WITH username="demo_ada", password="Secret123" AS login
+CALL auth.me WITH token=${login.token} AS me
+RETURN {"register": reg, "login_ok": login.ok, "me": me}

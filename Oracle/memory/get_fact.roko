@@ -1,0 +1,8 @@
+// @name: memory.get_fact
+// @category: memory
+// @description: Obtem um facto
+// @params: user_id, key
+// Oracle tool (.roko) — executável via CALL memory.get_fact
+
+CALL native.memory.get_fact WITH user_id=${user_id}, key=${key} AS r
+RETURN ${r}

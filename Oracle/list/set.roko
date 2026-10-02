@@ -1,0 +1,8 @@
+// @name: list.set
+// @category: list
+// @description: Define item por índice
+// @params: items, index, value
+// Oracle tool (.roko) — executável via CALL list.set
+
+CALL native.list.set WITH items=${items}, index=${index}, value=${value} AS r
+RETURN ${r}

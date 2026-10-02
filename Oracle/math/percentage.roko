@@ -1,0 +1,7 @@
+// @name: math.percentage
+// @category: math
+// @description: Calcula a porcentagem
+// @params: a, b
+// Oracle tool (.roko) — executável via CALL math.percentage
+
+RETURN (${a} / 100) * ${b}

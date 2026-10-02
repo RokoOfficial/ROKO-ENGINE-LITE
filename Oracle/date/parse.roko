@@ -1,0 +1,8 @@
+// @name: date.parse
+// @category: date
+// @description: Parseia data em múltiplos formatos
+// @params: date_str
+// Oracle tool (.roko) — executável via CALL date.parse
+
+CALL native.date.parse WITH date_str=${date_str} AS r
+RETURN ${r}

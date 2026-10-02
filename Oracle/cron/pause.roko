@@ -1,0 +1,8 @@
+// @name: cron.pause
+// @category: cron
+// @description: Pausa job
+// @params: user_id, job_id
+// Oracle tool (.roko) — executável via CALL cron.pause
+
+CALL native.cron.pause WITH user_id=${user_id}, job_id=${job_id} AS r
+RETURN ${r}

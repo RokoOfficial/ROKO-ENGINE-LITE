@@ -1,0 +1,7 @@
+// @name: math.average
+// @category: math
+// @description: Calcula a média aritmética
+// @params: a, b
+// Oracle tool (.roko) — executável via CALL math.average
+
+RETURN (${a} + ${b}) / 2

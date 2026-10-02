@@ -1,0 +1,8 @@
+// Oracle demo — list.filter
+// Filtra a lista
+
+SET items TO [1, 2, 3]
+SET condition TO ""
+
+CALL list.filter WITH items=${items}, condition=${condition} AS resultado
+RETURN {"tool": "list.filter", "resultado": resultado}

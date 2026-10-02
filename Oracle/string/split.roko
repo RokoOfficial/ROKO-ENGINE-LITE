@@ -1,0 +1,8 @@
+// @name: string.split
+// @category: string
+// @description: Divide string em lista
+// @params: text, separator
+// Oracle tool (.roko) — executável via CALL string.split
+
+CALL native.string.split WITH text=${text}, separator=${separator} AS r
+RETURN ${r}

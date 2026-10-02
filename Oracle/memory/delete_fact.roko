@@ -1,0 +1,8 @@
+// @name: memory.delete_fact
+// @category: memory
+// @description: Remove factos
+// @params: user_id, key, category, delete_all
+// Oracle tool (.roko) — executável via CALL memory.delete_fact
+
+CALL native.memory.delete_fact WITH user_id=${user_id}, key=${key}, category=${category}, delete_all=${delete_all} AS r
+RETURN ${r}

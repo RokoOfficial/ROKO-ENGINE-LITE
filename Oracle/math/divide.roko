@@ -1,0 +1,7 @@
+// @name: math.divide
+// @category: math
+// @description: Divide dois números
+// @params: a, b
+// Oracle tool (.roko) — executável via CALL math.divide
+
+RETURN ${a} / ${b}

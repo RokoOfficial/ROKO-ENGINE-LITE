@@ -1,0 +1,8 @@
+// @name: list.prepend
+// @category: list
+// @description: Adiciona item no início
+// @params: items, item
+// Oracle tool (.roko) — executável via CALL list.prepend
+
+CALL native.list.prepend WITH items=${items}, item=${item} AS r
+RETURN ${r}

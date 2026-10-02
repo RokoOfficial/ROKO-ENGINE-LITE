@@ -1,0 +1,8 @@
+// @name: cron.list
+// @category: cron
+// @description: Lista jobs
+// @params: user_id, status
+// Oracle tool (.roko) — executável via CALL cron.list
+
+CALL native.cron.list WITH user_id=${user_id}, status=${status} AS r
+RETURN ${r}

@@ -1,0 +1,23 @@
+// Plan agente — escolhe tool via meta.search (estilo Oracle semantic_router)
+SET intencao TO ${goal}
+CALL meta.search WITH query=${intencao} AS candidatos
+
+SET melhor TO ""
+FOR r IN candidatos DO
+  CALL json.get WITH obj=${r}, key="name" AS nome
+  IF ${melhor} == "" THEN
+    SET melhor TO ${nome}
+  END
+END
+
+IF ${melhor} == "" THEN
+  RETURN {"ok": false, "erro": "nenhuma tool", "goal": ${goal}}
+END
+
+// demo: se for math.sum, chama com 3 e 4
+IF ${melhor} == "math.sum" THEN
+  CALL math.sum WITH a=3, b=4 AS out
+  RETURN {"ok": true, "tool": ${melhor}, "result": ${out}}
+END
+
+RETURN {"ok": true, "tool": ${melhor}, "note": "tool encontrada mas sem params demo"}

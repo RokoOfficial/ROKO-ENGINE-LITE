@@ -1,0 +1,8 @@
+// @name: http.get
+// @category: http
+// @description: Requisição HTTP GET
+// @params: url, headers
+// Oracle tool (.roko) — executável via CALL http.get
+
+CALL native.http.get WITH url=${url}, headers=${headers} AS r
+RETURN ${r}

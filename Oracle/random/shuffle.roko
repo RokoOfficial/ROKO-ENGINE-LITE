@@ -1,0 +1,8 @@
+// @name: random.shuffle
+// @category: random
+// @description: Embaralha lista
+// @params: items
+// Oracle tool (.roko) — executável via CALL random.shuffle
+
+CALL native.random.shuffle WITH items=${items} AS r
+RETURN ${r}

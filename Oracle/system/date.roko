@@ -1,0 +1,8 @@
+// @name: system.date
+// @category: system
+// @description: Data atual
+// @params: 
+// Oracle tool (.roko) — executável via CALL system.date
+
+CALL native.system.date AS r
+RETURN ${r}

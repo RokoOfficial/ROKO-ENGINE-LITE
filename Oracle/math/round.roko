@@ -1,0 +1,8 @@
+// @name: math.round
+// @category: math
+// @description: Arredonda para n casas decimais
+// @params: a, decimals
+// Oracle tool (.roko) — executável via CALL math.round
+
+CALL native.math.round WITH a=${a}, decimals=${decimals} AS r
+RETURN ${r}

@@ -1,0 +1,8 @@
+// Oracle demo — math.sum
+// Soma dois números
+
+SET a TO 7
+SET b TO 8
+
+CALL math.sum WITH a=${a}, b=${b} AS resultado
+RETURN {"tool": "math.sum", "resultado": resultado}

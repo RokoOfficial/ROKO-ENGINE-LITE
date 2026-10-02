@@ -1,0 +1,8 @@
+// @name: cron.run_now
+// @category: cron
+// @description: Executa job agora
+// @params: user_id, job_id
+// Oracle tool (.roko) — executável via CALL cron.run_now
+
+CALL native.cron.run_now WITH user_id=${user_id}, job_id=${job_id} AS r
+RETURN ${r}

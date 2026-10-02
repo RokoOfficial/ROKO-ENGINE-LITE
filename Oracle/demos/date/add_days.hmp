@@ -1,0 +1,8 @@
+// Oracle demo — date.add_days
+// Adiciona dias a uma data
+
+SET date_str TO "2026-09-08"
+SET days TO 3
+
+CALL date.add_days WITH date_str=${date_str}, days=${days} AS resultado
+RETURN {"tool": "date.add_days", "resultado": resultado}

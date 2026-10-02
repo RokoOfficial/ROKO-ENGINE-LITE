@@ -1,0 +1,8 @@
+// @name: agent.run
+// @category: agent
+// @description: Loop agentico simbolico ROKO→ROKO (plan + goal + HGR, sem LLM)
+// @params: plan, goal, id, max_steps, user_id, vars
+// Oracle tool (.roko) — executável via CALL agent.run
+
+CALL native.agent.run WITH plan=${plan}, goal=${goal}, id=${id}, max_steps=${max_steps}, user_id=${user_id}, vars=${vars} AS r
+RETURN ${r}

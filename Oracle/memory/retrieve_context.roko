@@ -1,0 +1,8 @@
+// @name: memory.retrieve_context
+// @category: memory
+// @description: Recupera steps relevantes
+// @params: user_id, query, max_items
+// Oracle tool (.roko) — executável via CALL memory.retrieve_context
+
+CALL native.memory.retrieve_context WITH user_id=${user_id}, query=${query}, max_items=${max_items} AS r
+RETURN ${r}

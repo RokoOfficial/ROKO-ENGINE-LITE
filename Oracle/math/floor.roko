@@ -1,0 +1,8 @@
+// @name: math.floor
+// @category: math
+// @description: Arredonda para baixo
+// @params: a
+// Oracle tool (.roko) — executável via CALL math.floor
+
+CALL native.math.floor WITH a=${a} AS r
+RETURN ${r}

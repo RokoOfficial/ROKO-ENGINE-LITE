@@ -1,0 +1,7 @@
+// Oracle demo — string.reverse
+// Inverte a string
+
+SET text TO "Hello ROKO"
+
+CALL string.reverse WITH text=${text} AS resultado
+RETURN {"tool": "string.reverse", "resultado": resultado}

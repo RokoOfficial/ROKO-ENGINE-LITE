@@ -1,0 +1,8 @@
+// @name: date.add_hours
+// @category: date
+// @description: Adiciona horas a uma data
+// @params: date_str, hours
+// Oracle tool (.roko) — executável via CALL date.add_hours
+
+CALL native.date.add_hours WITH date_str=${date_str}, hours=${hours} AS r
+RETURN ${r}

@@ -1,0 +1,8 @@
+// Oracle demo — list.merge
+// Funde duas listas
+
+SET list1 TO ""
+SET list2 TO ""
+
+CALL list.merge WITH list1=${list1}, list2=${list2} AS resultado
+RETURN {"tool": "list.merge", "resultado": resultado}

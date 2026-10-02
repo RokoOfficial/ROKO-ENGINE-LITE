@@ -1,0 +1,8 @@
+// @name: list.merge
+// @category: list
+// @description: Funde duas listas
+// @params: list1, list2
+// Oracle tool (.roko) — executável via CALL list.merge
+
+CALL native.list.merge WITH list1=${list1}, list2=${list2} AS r
+RETURN ${r}

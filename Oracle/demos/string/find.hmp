@@ -1,0 +1,8 @@
+// Oracle demo — string.find
+// Encontra posição da substring
+
+SET text TO "Hello ROKO"
+SET substring TO "ROKO"
+
+CALL string.find WITH text=${text}, substring=${substring} AS resultado
+RETURN {"tool": "string.find", "resultado": resultado}

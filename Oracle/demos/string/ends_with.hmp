@@ -1,0 +1,8 @@
+// Oracle demo — string.ends_with
+// Verifica sufixo
+
+SET text TO "Hello ROKO"
+SET suffix TO "!"
+
+CALL string.ends_with WITH text=${text}, suffix=${suffix} AS resultado
+RETURN {"tool": "string.ends_with", "resultado": resultado}

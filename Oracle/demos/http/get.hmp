@@ -1,0 +1,8 @@
+// Oracle demo — http.get
+// Requisição HTTP GET
+
+SET url TO "https://httpbin.org/get"
+SET headers TO {}
+
+CALL http.get WITH url=${url}, headers=${headers} AS resultado
+RETURN {"tool": "http.get", "resultado": resultado}

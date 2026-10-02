@@ -1,0 +1,7 @@
+// Oracle demo — log.debug
+// Registra log DEBUG
+
+SET message TO "teste log"
+
+CALL log.debug WITH message=${message} AS resultado
+RETURN {"tool": "log.debug", "resultado": resultado}

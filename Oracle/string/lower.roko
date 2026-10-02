@@ -1,0 +1,8 @@
+// @name: string.lower
+// @category: string
+// @description: Converte para minúsculas
+// @params: text
+// Oracle tool (.roko) — executável via CALL string.lower
+
+CALL native.string.lower WITH text=${text} AS r
+RETURN ${r}

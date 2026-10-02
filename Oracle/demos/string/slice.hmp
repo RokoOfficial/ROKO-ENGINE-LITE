@@ -1,0 +1,9 @@
+// Oracle demo — string.slice
+// Fatiamento de string
+
+SET text TO "Hello ROKO"
+SET start TO 0
+SET end TO 5
+
+CALL string.slice WITH text=${text}, start=${start}, end=${end} AS resultado
+RETURN {"tool": "string.slice", "resultado": resultado}

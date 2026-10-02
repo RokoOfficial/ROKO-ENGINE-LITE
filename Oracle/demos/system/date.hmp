@@ -1,0 +1,5 @@
+// Oracle demo — system.date
+// Data atual
+
+CALL system.date AS resultado
+RETURN {"tool": "system.date", "resultado": resultado}

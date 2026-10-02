@@ -1,0 +1,5 @@
+// Plan que usa só tools Oracle (.roko)
+CALL math.sum WITH a=10, b=5 AS s
+CALL math.multiply WITH a=${s}, b=3 AS m
+CALL string.lower WITH text="ORACLE" AS t
+RETURN {"sum": ${s}, "mult": ${m}, "text": ${t}, "step": ${step}}

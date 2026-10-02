@@ -1,27 +1,30 @@
-# Python bytecode and tooling
 __pycache__/
 *.py[cod]
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-
-# Local virtual environments
+*$py.class
+*.so
+.Python
 .venv/
 venv/
 env/
-
-# Runtime-managed directories
-uploads/
-logs/
-temp/
-
-# Local configuration and editor files
 .env
-.env.*
-!.env.example
-.vscode/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
 .idea/
-
-# OS metadata
+.vscode/
+*.log
+uploads/*
+!uploads/.gitkeep
+logs/*
+!logs/.gitkeep
+temp/*
+!temp/.gitkeep
 .DS_Store
-Thumbs.db
+*.zip
+
+data/
+*.db
+__pycache__/
+.venv/

@@ -1,0 +1,8 @@
+// @name: random.float
+// @category: random
+// @description: Número decimal aleatório
+// @params: min_val, max_val
+// Oracle tool (.roko) — executável via CALL random.float
+
+CALL native.random.float WITH min_val=${min_val}, max_val=${max_val} AS r
+RETURN ${r}

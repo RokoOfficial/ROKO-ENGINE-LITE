@@ -1,0 +1,6 @@
+// Demo cron
+SET uid TO "demo_user"
+CALL cron.create WITH user_id=${uid}, name="health", schedule="every:10m", task="health check" AS job
+CALL cron.run_now WITH user_id=${uid}, job_id=${job.job.id} AS ran
+CALL cron.list WITH user_id=${uid} AS jobs
+RETURN {"job": job, "ran": ran, "jobs": jobs}

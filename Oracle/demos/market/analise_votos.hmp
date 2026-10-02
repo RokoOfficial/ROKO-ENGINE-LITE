@@ -1,0 +1,124 @@
+// ============================================================
+// ANALISE DE MERCADO POR VOTOS
+// 6 analistas logicos votam: +1 COMPRA | -1 VENDA | 0 NEUTRO
+// Tools: list.append, list.length
+// ============================================================
+
+// --- indicadores (troque pelos dados reais) ---
+SET preco TO 100
+SET preco_ma20 TO 95
+SET preco_ma50 TO 90
+SET rsi TO 28
+SET volume TO 1500000
+SET volume_media TO 1000000
+SET variacao_dia TO -2.5
+SET suporte TO 96
+SET resistencia TO 108
+
+SET votos TO []
+SET motivos TO []
+
+// 1) Tendencia MA20 vs MA50
+IF preco_ma20 > preco_ma50 THEN
+    CALL list.append WITH items=${votos}, item=1 AS votos
+    CALL list.append WITH items=${motivos}, item="tendencia alta MA20>MA50" AS motivos
+ELSE
+    CALL list.append WITH items=${votos}, item=-1 AS votos
+    CALL list.append WITH items=${motivos}, item="tendencia baixa" AS motivos
+END
+
+// 2) Preco vs MA20
+IF preco > preco_ma20 THEN
+    CALL list.append WITH items=${votos}, item=1 AS votos
+    CALL list.append WITH items=${motivos}, item="preco > MA20" AS motivos
+ELSE
+    CALL list.append WITH items=${votos}, item=-1 AS votos
+    CALL list.append WITH items=${motivos}, item="preco < MA20" AS motivos
+END
+
+// 3) RSI
+IF rsi < 30 THEN
+    CALL list.append WITH items=${votos}, item=1 AS votos
+    CALL list.append WITH items=${motivos}, item="RSI sobrevenda" AS motivos
+END
+IF rsi > 70 THEN
+    CALL list.append WITH items=${votos}, item=-1 AS votos
+    CALL list.append WITH items=${motivos}, item="RSI sobrecompra" AS motivos
+END
+IF rsi >= 30 THEN
+    IF rsi <= 70 THEN
+        CALL list.append WITH items=${votos}, item=0 AS votos
+        CALL list.append WITH items=${motivos}, item="RSI neutro" AS motivos
+    END
+END
+
+// 4) Volume
+IF volume > volume_media THEN
+    CALL list.append WITH items=${votos}, item=1 AS votos
+    CALL list.append WITH items=${motivos}, item="volume alto" AS motivos
+ELSE
+    CALL list.append WITH items=${votos}, item=0 AS votos
+    CALL list.append WITH items=${motivos}, item="volume fraco" AS motivos
+END
+
+// 5) Variacao do dia
+IF variacao_dia < -3 THEN
+    CALL list.append WITH items=${votos}, item=1 AS votos
+    CALL list.append WITH items=${motivos}, item="queda forte (rebote)" AS motivos
+END
+IF variacao_dia > 3 THEN
+    CALL list.append WITH items=${votos}, item=-1 AS votos
+    CALL list.append WITH items=${motivos}, item="alta forte (realizacao)" AS motivos
+END
+IF variacao_dia >= -3 THEN
+    IF variacao_dia <= 3 THEN
+        CALL list.append WITH items=${votos}, item=0 AS votos
+        CALL list.append WITH items=${motivos}, item="variacao moderada" AS motivos
+    END
+END
+
+// 6) Suporte / Resistencia
+IF preco <= suporte * 1.02 THEN
+    CALL list.append WITH items=${votos}, item=1 AS votos
+    CALL list.append WITH items=${motivos}, item="perto do suporte" AS motivos
+END
+IF preco >= resistencia * 0.98 THEN
+    CALL list.append WITH items=${votos}, item=-1 AS votos
+    CALL list.append WITH items=${motivos}, item="perto da resistencia" AS motivos
+END
+IF preco > suporte * 1.02 THEN
+    IF preco < resistencia * 0.98 THEN
+        CALL list.append WITH items=${votos}, item=0 AS votos
+        CALL list.append WITH items=${motivos}, item="meio do range" AS motivos
+    END
+END
+
+// Contagem
+SET soma TO 0
+SET n_compra TO 0
+SET n_venda TO 0
+SET n_neutro TO 0
+FOR v IN votos DO
+    SET soma TO soma + v
+    IF v == 1 THEN
+        SET n_compra TO n_compra + 1
+    END
+    IF v == -1 THEN
+        SET n_venda TO n_venda + 1
+    END
+    IF v == 0 THEN
+        SET n_neutro TO n_neutro + 1
+    END
+END
+
+CALL list.length WITH items=${votos} AS total_votos
+
+SET decisao TO "NEUTRO"
+IF soma >= 2 THEN
+    SET decisao TO "COMPRA"
+END
+IF soma <= -2 THEN
+    SET decisao TO "VENDA"
+END
+
+RETURN decisao

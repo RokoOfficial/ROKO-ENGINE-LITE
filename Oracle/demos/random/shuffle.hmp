@@ -1,0 +1,7 @@
+// Oracle demo — random.shuffle
+// Embaralha lista
+
+SET items TO [1, 2, 3]
+
+CALL random.shuffle WITH items=${items} AS resultado
+RETURN {"tool": "random.shuffle", "resultado": resultado}

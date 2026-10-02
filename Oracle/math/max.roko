@@ -1,0 +1,10 @@
+// @name: math.max
+// @category: math
+// @description: Retorna o maior valor
+// @params: a, b
+// Oracle tool (.roko) — executável via CALL math.max
+
+IF ${a} >= ${b} THEN
+  RETURN ${a}
+END
+RETURN ${b}

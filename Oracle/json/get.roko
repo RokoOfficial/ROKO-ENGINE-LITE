@@ -1,0 +1,8 @@
+// @name: json.get
+// @category: json
+// @description: Obtém valor por chave
+// @params: obj, key, default
+// Oracle tool (.roko) — executável via CALL json.get
+
+CALL native.json.get WITH obj=${obj}, key=${key}, default=${default} AS r
+RETURN ${r}

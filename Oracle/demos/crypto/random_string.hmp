@@ -1,0 +1,7 @@
+// Oracle demo — crypto.random_string
+// Gera string aleatória
+
+SET length TO 10
+
+CALL crypto.random_string WITH length=${length} AS resultado
+RETURN {"tool": "crypto.random_string", "resultado": resultado}

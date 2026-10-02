@@ -1,0 +1,8 @@
+// @name: list.unique
+// @category: list
+// @description: Remove duplicatas
+// @params: items
+// Oracle tool (.roko) — executável via CALL list.unique
+
+CALL native.list.unique WITH items=${items} AS r
+RETURN ${r}

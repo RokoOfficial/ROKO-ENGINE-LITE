@@ -1,0 +1,7 @@
+// @name: math.multiply
+// @category: math
+// @description: Multiplica dois números
+// @params: a, b
+// Oracle tool (.roko) — executável via CALL math.multiply
+
+RETURN ${a} * ${b}

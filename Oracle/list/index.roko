@@ -1,0 +1,8 @@
+// @name: list.index
+// @category: list
+// @description: Índice do item
+// @params: items, value
+// Oracle tool (.roko) — executável via CALL list.index
+
+CALL native.list.index WITH items=${items}, value=${value} AS r
+RETURN ${r}

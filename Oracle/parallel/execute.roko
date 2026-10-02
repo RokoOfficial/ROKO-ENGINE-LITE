@@ -1,0 +1,8 @@
+// @name: parallel.execute
+// @category: parallel
+// @description: Execucao sincrona paralela
+// @params: dados, operacao
+// Oracle tool (.roko) — executável via CALL parallel.execute
+
+CALL native.parallel.execute WITH dados=${dados}, operacao=${operacao} AS r
+RETURN ${r}

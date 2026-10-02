@@ -1,0 +1,8 @@
+// @name: memory.record_step
+// @category: memory
+// @description: Regista step de raciocinio
+// @params: user_id, query, thought, action, confidence, tool, result
+// Oracle tool (.roko) — executável via CALL memory.record_step
+
+CALL native.memory.record_step WITH user_id=${user_id}, query=${query}, thought=${thought}, action=${action}, confidence=${confidence}, tool=${tool}, result=${result} AS r
+RETURN ${r}

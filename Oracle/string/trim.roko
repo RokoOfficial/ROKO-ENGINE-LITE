@@ -1,0 +1,8 @@
+// @name: string.trim
+// @category: string
+// @description: Remove espaços em branco
+// @params: text
+// Oracle tool (.roko) — executável via CALL string.trim
+
+CALL native.string.trim WITH text=${text} AS r
+RETURN ${r}

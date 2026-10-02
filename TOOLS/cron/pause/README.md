@@ -1,0 +1,3 @@
+# `cron.pause`
+
+Pausa job

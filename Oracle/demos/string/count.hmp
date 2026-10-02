@@ -1,0 +1,8 @@
+// Oracle demo — string.count
+// Conta ocorrências
+
+SET text TO "Hello ROKO"
+SET substring TO "ROKO"
+
+CALL string.count WITH text=${text}, substring=${substring} AS resultado
+RETURN {"tool": "string.count", "resultado": resultado}

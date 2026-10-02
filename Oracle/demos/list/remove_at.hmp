@@ -1,0 +1,8 @@
+// Oracle demo — list.remove_at
+// Remove item por índice
+
+SET items TO [1, 2, 3]
+SET index TO 0
+
+CALL list.remove_at WITH items=${items}, index=${index} AS resultado
+RETURN {"tool": "list.remove_at", "resultado": resultado}

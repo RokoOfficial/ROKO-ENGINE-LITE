@@ -1,0 +1,8 @@
+// @name: system.time
+// @category: system
+// @description: Hora atual
+// @params: 
+// Oracle tool (.roko) — executável via CALL system.time
+
+CALL native.system.time AS r
+RETURN ${r}

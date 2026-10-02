@@ -1,0 +1,7 @@
+// Oracle demo — math.floor
+// Arredonda para baixo
+
+SET a TO 7
+
+CALL math.floor WITH a=${a} AS resultado
+RETURN {"tool": "math.floor", "resultado": resultado}

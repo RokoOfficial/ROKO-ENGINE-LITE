@@ -1,0 +1,10 @@
+// @name: math.abs
+// @category: math
+// @description: Valor absoluto
+// @params: x
+// Oracle tool (.roko) — executável via CALL math.abs
+
+IF ${x} < 0 THEN
+  RETURN 0 - ${x}
+END
+RETURN ${x}

@@ -1,0 +1,8 @@
+// @name: http.put
+// @category: http
+// @description: Requisição HTTP PUT
+// @params: url, data, headers
+// Oracle tool (.roko) — executável via CALL http.put
+
+CALL native.http.put WITH url=${url}, data=${data}, headers=${headers} AS r
+RETURN ${r}

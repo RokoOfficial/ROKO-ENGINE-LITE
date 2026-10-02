@@ -1,0 +1,8 @@
+// @name: date.timestamp
+// @category: date
+// @description: Timestamp atual
+// @params: 
+// Oracle tool (.roko) — executável via CALL date.timestamp
+
+CALL native.date.timestamp AS r
+RETURN ${r}

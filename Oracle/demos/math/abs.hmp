@@ -1,0 +1,7 @@
+// Oracle demo — math.abs
+// Valor absoluto
+
+SET a TO 7
+
+CALL math.abs WITH a=${a} AS resultado
+RETURN {"tool": "math.abs", "resultado": resultado}

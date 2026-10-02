@@ -1,0 +1,8 @@
+// Oracle demo — http.get_json
+// HTTP GET com retorno JSON
+
+SET url TO "https://httpbin.org/get"
+SET headers TO {}
+
+CALL http.get_json WITH url=${url}, headers=${headers} AS resultado
+RETURN {"tool": "http.get_json", "resultado": resultado}

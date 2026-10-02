@@ -1,0 +1,5 @@
+// Oracle demo — date.now
+// Data e hora atual
+
+CALL date.now AS resultado
+RETURN {"tool": "date.now", "resultado": resultado}

@@ -1,0 +1,8 @@
+// @name: cron.create
+// @category: cron
+// @description: Cria job agendado
+// @params: user_id, name, schedule, task, description, task_type
+// Oracle tool (.roko) — executável via CALL cron.create
+
+CALL native.cron.create WITH user_id=${user_id}, name=${name}, schedule=${schedule}, task=${task}, description=${description}, task_type=${task_type} AS r
+RETURN ${r}

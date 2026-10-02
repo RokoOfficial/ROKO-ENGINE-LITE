@@ -1,0 +1,7 @@
+// @name: math.power
+// @category: math
+// @description: Eleva à potência
+// @params: a, b
+// Oracle tool (.roko) — executável via CALL math.power
+
+RETURN ${a} ** ${b}

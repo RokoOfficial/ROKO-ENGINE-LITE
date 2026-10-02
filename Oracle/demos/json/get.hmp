@@ -1,0 +1,9 @@
+// Oracle demo — json.get
+// Obtém valor por chave
+
+SET obj TO {"x": 1, "y": 2}
+SET key TO "x"
+SET default TO null
+
+CALL json.get WITH obj=${obj}, key=${key}, default=${default} AS resultado
+RETURN {"tool": "json.get", "resultado": resultado}

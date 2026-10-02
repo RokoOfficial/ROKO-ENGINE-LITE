@@ -1,0 +1,7 @@
+// Oracle demo — date.parse
+// Parseia data em múltiplos formatos
+
+SET date_str TO "2026-09-08"
+
+CALL date.parse WITH date_str=${date_str} AS resultado
+RETURN {"tool": "date.parse", "resultado": resultado}

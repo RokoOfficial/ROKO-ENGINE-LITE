@@ -1,0 +1,8 @@
+// @name: crypto.random_string
+// @category: crypto
+// @description: Gera string aleatória
+// @params: length
+// Oracle tool (.roko) — executável via CALL crypto.random_string
+
+CALL native.crypto.random_string WITH length=${length} AS r
+RETURN ${r}

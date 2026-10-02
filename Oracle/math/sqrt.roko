@@ -1,0 +1,8 @@
+// @name: math.sqrt
+// @category: math
+// @description: Raiz quadrada
+// @params: a
+// Oracle tool (.roko) — executável via CALL math.sqrt
+
+CALL native.math.sqrt WITH a=${a} AS r
+RETURN ${r}

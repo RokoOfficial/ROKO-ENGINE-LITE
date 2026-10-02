@@ -1,0 +1,9 @@
+// Oracle demo — string.replace
+// Substitui texto
+
+SET text TO "Hello ROKO"
+SET old TO "o"
+SET new TO "0"
+
+CALL string.replace WITH text=${text}, old=${old}, new=${new} AS resultado
+RETURN {"tool": "string.replace", "resultado": resultado}

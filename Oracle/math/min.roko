@@ -1,0 +1,10 @@
+// @name: math.min
+// @category: math
+// @description: Retorna o menor valor
+// @params: a, b
+// Oracle tool (.roko) — executável via CALL math.min
+
+IF ${a} <= ${b} THEN
+  RETURN ${a}
+END
+RETURN ${b}

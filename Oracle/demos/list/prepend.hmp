@@ -1,0 +1,8 @@
+// Oracle demo — list.prepend
+// Adiciona item no início
+
+SET items TO [1, 2, 3]
+SET item TO 99
+
+CALL list.prepend WITH items=${items}, item=${item} AS resultado
+RETURN {"tool": "list.prepend", "resultado": resultado}

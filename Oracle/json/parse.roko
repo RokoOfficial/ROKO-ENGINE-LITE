@@ -1,0 +1,8 @@
+// @name: json.parse
+// @category: json
+// @description: Converte JSON para objeto
+// @params: json_string
+// Oracle tool (.roko) — executável via CALL json.parse
+
+CALL native.json.parse WITH json_string=${json_string} AS r
+RETURN ${r}

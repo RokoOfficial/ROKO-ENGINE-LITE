@@ -1,0 +1,8 @@
+// @name: http.post
+// @category: http
+// @description: Requisição HTTP POST
+// @params: url, data, headers
+// Oracle tool (.roko) — executável via CALL http.post
+
+CALL native.http.post WITH url=${url}, data=${data}, headers=${headers} AS r
+RETURN ${r}

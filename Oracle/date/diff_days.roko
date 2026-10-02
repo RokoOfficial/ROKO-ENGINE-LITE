@@ -1,0 +1,8 @@
+// @name: date.diff_days
+// @category: date
+// @description: Diferença em dias entre duas datas
+// @params: date1, date2
+// Oracle tool (.roko) — executável via CALL date.diff_days
+
+CALL native.date.diff_days WITH date1=${date1}, date2=${date2} AS r
+RETURN ${r}
